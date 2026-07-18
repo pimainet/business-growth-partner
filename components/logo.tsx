@@ -22,11 +22,7 @@ export function Logo({ className }: { className?: string }) {
         </svg>
       </span>
       <span className="text-[17px] font-semibold tracking-tight text-foreground">
-<<<<<<< HEAD
         BGS<span className="align-super text-[0.55em] text-accent">™</span>
-=======
-        Systema
->>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
       </span>
     </span>
   )

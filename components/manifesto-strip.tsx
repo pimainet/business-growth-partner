@@ -2,11 +2,7 @@ import { Reveal } from '@/components/reveal'
 
 export function ManifestoStrip() {
   return (
-<<<<<<< HEAD
     <section className="border-b border-border bg-navy py-18 lg:py-24">
-=======
-    <section className="border-b border-border bg-navy py-14 lg:py-16">
->>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
       <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
         <Reveal>
           <p className="text-balance text-xl font-medium leading-snug tracking-tight text-navy-foreground sm:text-2xl lg:text-[1.7rem]">
