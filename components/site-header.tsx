@@ -6,11 +6,12 @@ import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { label: 'GROW-5™', href: '#framework' },
+  { label: 'Đánh giá doanh nghiệp', href: '#assessment' },
+  { label: 'Phương pháp', href: '#framework' },
   { label: 'Giải pháp', href: '#solutions' },
-  { label: 'Ngành', href: '#industries' },
-  { label: 'Câu chuyện triển khai', href: '#case-study' },
+  { label: 'Dự án', href: '#case-study' },
   { label: 'Kiến thức', href: '#insights' },
+  { label: 'Liên hệ', href: '#final-cta' },
 ]
 
 export function SiteHeader() {
@@ -51,12 +52,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="#assessment"
-            className="text-sm font-medium text-foreground transition-colors hover:text-accent"
-          >
-            Xem điểm nghẽn của tôi
-          </a>
           <a
             href="#final-cta"
             className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent"

@@ -67,6 +67,33 @@ export function CaseStudy() {
             </div>
           </div>
         </Reveal>
+
+        <Reveal delay={180}>
+          <div className="mt-6 rounded-2xl border border-dashed border-border bg-secondary/20 p-8 lg:p-10">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+              Định dạng mẫu — chưa phải case thật
+            </span>
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
+              Đây là cách mỗi case study thật sẽ được viết — cụ thể, có tên,
+              có số liệu, không phải câu chung chung kiểu "chúng tôi giúp...".
+            </p>
+            <div className="mt-6 max-w-md rounded-xl border border-border bg-card p-6">
+              <p className="text-sm font-semibold text-foreground">
+                [Tên khách hàng] — Xưởng [ngành], [số] nhân viên
+              </p>
+              <div className="mt-4 space-y-2 text-sm">
+                <p className="text-muted-foreground">
+                  <span className="font-medium text-foreground">Trước:</span>{' '}
+                  [tình trạng ban đầu — ví dụ: báo giá mất 2 ngày]
+                </p>
+                <p className="text-muted-foreground">
+                  <span className="font-medium text-foreground">Sau:</span>{' '}
+                  [kết quả đo được — ví dụ: báo giá trong 15 phút]
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

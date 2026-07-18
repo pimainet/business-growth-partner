@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { ArrowRight, ArrowLeft, RotateCcw } from 'lucide-react'
+import { useMemo, useState, type FormEvent } from 'react'
+import { ArrowRight, ArrowLeft, RotateCcw, Lock, Check, X as XIcon } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import { GROW5_STAGES, type Grow5Slug } from '@/lib/grow5'
 
@@ -144,6 +144,8 @@ function scrollToFramework(slug: Grow5Slug) {
 export function BusinessAssessment() {
   const [step, setStep] = useState(0) // 0..stages.length-1 = questions, stages.length = result
   const [answers, setAnswers] = useState<Record<string, number>>({})
+  const [email, setEmail] = useState('')
+  const [emailSubmitted, setEmailSubmitted] = useState(false)
 
   const stages = GROW5_STAGES
   const isResult = step === stages.length
@@ -177,8 +179,19 @@ export function BusinessAssessment() {
     : 0
 
   const sortedByWeakness = [...scores].sort((a, b) => a.value - b.value)
+  const sortedByStrength = [...scores].sort((a, b) => b.value - a.value)
   const weakest = sortedByWeakness[0] ?? scores[0]
   const maturity = getMaturityLevel(overall)
+
+  const strengths =
+    sortedByStrength.filter((s) => s.value >= 70).slice(0, 3).length > 0
+      ? sortedByStrength.filter((s) => s.value >= 70).slice(0, 3)
+      : sortedByStrength.slice(0, 1)
+  const bottlenecks =
+    sortedByWeakness.filter((s) => s.value < 45).slice(0, 3).length > 0
+      ? sortedByWeakness.filter((s) => s.value < 45).slice(0, 3)
+      : sortedByWeakness.slice(0, 2)
+  const priority30Days = sortedByWeakness.slice(0, 3)
 
   function setAnswer(questionId: string, value: number) {
     setAnswers((prev) => ({ ...prev, [questionId]: value }))
@@ -187,6 +200,13 @@ export function BusinessAssessment() {
   function reset() {
     setAnswers({})
     setStep(0)
+    setEmail('')
+    setEmailSubmitted(false)
+  }
+
+  function handleEmailSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (email.trim()) setEmailSubmitted(true)
   }
 
   function downloadReport() {
@@ -198,6 +218,12 @@ export function BusinessAssessment() {
       `ĐIỂM TỔNG THỂ: ${overall}/100`,
       `GIAI ĐOẠN TRƯỞNG THÀNH: ${maturity.label}`,
       maturity.desc,
+      '',
+      'ĐIỂM MẠNH:',
+      ...strengths.map((s) => `✓ ${s.code} · ${s.title} (${s.value}/100)`),
+      '',
+      'ĐIỂM NGHẼN:',
+      ...bottlenecks.map((s) => `✗ ${s.code} · ${s.title} (${s.value}/100)`),
       '',
       'CHI TIẾT THEO GIAI ĐOẠN GROW-5™:',
       ...scores.map((s) => {
@@ -340,72 +366,229 @@ export function BusinessAssessment() {
                 </button>
               </div>
             </div>
-          ) : (
-            <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr]">
-              <div>
-                <Reveal>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
-                    <span className="size-1.5 rounded-full bg-accent" />
-                    Kết quả đánh giá của bạn
-                  </span>
-                </Reveal>
-                <Reveal delay={80}>
-                  <h2 className="mt-6 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-                    Điểm yếu lớn nhất:{' '}
-                    <span className="text-accent">{weakest.title}</span>
-                  </h2>
-                </Reveal>
-                <Reveal delay={160}>
-                  <p className="mt-5 max-w-lg text-pretty text-lg leading-relaxed text-navy-foreground/70">
-                    Đây là giai đoạn trong GROW-5™ đang kìm hãm tăng trưởng
-                    của bạn nhiều nhất. Xử lý đúng chỗ này trước sẽ tạo ra
-                    tác động lớn hơn là dàn trải nguồn lực.
-                  </p>
-                </Reveal>
+          ) : !emailSubmitted ? (
+            <div className="relative mx-auto max-w-lg text-center">
+              <Reveal>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
+                  <span className="size-1.5 rounded-full bg-accent" />
+                  Kết quả đã sẵn sàng
+                </span>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="mt-6 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                  Mức trưởng thành doanh nghiệp:{' '}
+                  <span className="text-accent">{overall}/100</span>
+                </h2>
+              </Reveal>
+              <Reveal delay={140}>
+                <div className="mx-auto mt-6 h-3 max-w-sm overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-accent transition-all duration-700"
+                    style={{ width: `${overall}%` }}
+                  />
+                </div>
+                <p className="mt-3 text-sm text-navy-foreground/60">
+                  {maturity.label} — {maturity.desc}
+                </p>
+              </Reveal>
 
-                <Reveal delay={200}>
-                  <div className="mt-8 rounded-2xl border border-white/10 bg-[oklch(0.26_0.05_258)] p-5">
-                    <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
-                      Lộ trình ưu tiên — toàn bộ 5 giai đoạn
-                    </p>
-                    <ol className="mt-4 space-y-4">
-                      {sortedByWeakness.map((stage, i) => {
-                        const tier = getPriorityTier(stage.value)
-                        return (
-                          <li key={stage.slug} className="flex gap-3">
-                            <span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent/20 font-mono text-xs text-accent">
-                              {i + 1}
-                            </span>
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <p className="text-sm font-medium text-navy-foreground">
-                                  {stage.code} · {stage.title}
-                                </p>
-                                <span
-                                  className={
-                                    tier.tone === 'high'
-                                      ? 'rounded-full bg-destructive/20 px-2 py-0.5 text-[0.65rem] font-medium text-destructive'
-                                      : tier.tone === 'mid'
-                                        ? 'rounded-full bg-accent/15 px-2 py-0.5 text-[0.65rem] font-medium text-accent'
-                                        : 'rounded-full bg-white/10 px-2 py-0.5 text-[0.65rem] font-medium text-navy-foreground/50'
-                                  }
-                                >
-                                  {tier.label}
-                                </span>
-                              </div>
-                              <p className="mt-0.5 text-sm leading-relaxed text-navy-foreground/60">
-                                {NEXT_ACTION[stage.slug]}
-                              </p>
-                            </div>
+              <Reveal delay={200}>
+                <div className="relative mt-8 overflow-hidden rounded-2xl border border-white/10 bg-[oklch(0.26_0.05_258)] p-6 text-left">
+                  <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-[oklch(0.22_0.045_258)]/80 backdrop-blur-sm">
+                    <span className="flex items-center gap-2 rounded-full border border-white/15 bg-navy px-4 py-2 text-xs font-medium text-navy-foreground/80">
+                      <Lock className="size-3.5" />
+                      Nhập email để mở khóa
+                    </span>
+                  </div>
+                  <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                    Điểm mạnh
+                  </p>
+                  <p className="mt-2 text-sm text-navy-foreground/70">
+                    ✓ ••••••••••••••••••••••
+                  </p>
+                  <p className="mt-5 text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                    Điểm nghẽn
+                  </p>
+                  <p className="mt-2 text-sm text-navy-foreground/70">
+                    ✗ ••••••••••••••••••••••
+                  </p>
+                  <p className="mt-5 text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                    Ưu tiên 30 ngày
+                  </p>
+                  <p className="mt-2 text-sm text-navy-foreground/70">
+                    1. •••••••••••••••••••••
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={260}>
+                <form
+                  onSubmit={handleEmailSubmit}
+                  className="mt-6 flex flex-col gap-3 sm:flex-row"
+                >
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email của bạn"
+                    className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm text-navy-foreground placeholder:text-navy-foreground/40 outline-none focus:border-accent"
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                  >
+                    Xem kết quả đầy đủ
+                    <ArrowRight className="size-4" />
+                  </button>
+                </form>
+                <p className="mt-3 text-xs text-navy-foreground/40">
+                  Không spam. Chỉ dùng để gửi báo cáo và liên hệ nếu bạn cần
+                  hỗ trợ thêm.
+                </p>
+              </Reveal>
+            </div>
+          ) : (
+            <div className="relative">
+              {/* Report card — thiết kế để chụp màn hình chia sẻ */}
+              <Reveal>
+                <div
+                  id="report-card"
+                  className="mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[oklch(0.26_0.05_258)] p-7 lg:p-9"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-2 text-xs font-medium text-navy-foreground/50">
+                      <span className="size-1.5 rounded-full bg-accent" />
+                      BGS™ Đánh giá doanh nghiệp
+                    </span>
+                    <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
+                      {maturity.label}
+                    </span>
+                  </div>
+
+                  <p className="mt-6 text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                    Mức trưởng thành doanh nghiệp
+                  </p>
+                  <div className="mt-3 flex items-center gap-4">
+                    <div className="h-4 flex-1 overflow-hidden rounded-full bg-white/10">
+                      <div
+                        className="h-full rounded-full bg-accent transition-all duration-700"
+                        style={{ width: `${overall}%` }}
+                      />
+                    </div>
+                    <span className="font-mono text-2xl font-semibold text-navy-foreground">
+                      {overall}%
+                    </span>
+                  </div>
+
+                  <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                        Điểm mạnh
+                      </p>
+                      <ul className="mt-3 space-y-2.5">
+                        {strengths.map((s) => (
+                          <li
+                            key={s.slug}
+                            className="flex items-start gap-2 text-sm text-navy-foreground"
+                          >
+                            <Check
+                              className="mt-0.5 size-4 shrink-0 text-accent"
+                              strokeWidth={2.5}
+                            />
+                            {s.title}
                           </li>
-                        )
-                      })}
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                        Điểm nghẽn
+                      </p>
+                      <ul className="mt-3 space-y-2.5">
+                        {bottlenecks.map((s) => (
+                          <li
+                            key={s.slug}
+                            className="flex items-start gap-2 text-sm text-navy-foreground"
+                          >
+                            <XIcon
+                              className="mt-0.5 size-4 shrink-0 text-destructive"
+                              strokeWidth={2.5}
+                            />
+                            {s.title}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 border-t border-white/10 pt-6">
+                    <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                      Ưu tiên 30 ngày
+                    </p>
+                    <ol className="mt-3 space-y-3">
+                      {priority30Days.map((s, i) => (
+                        <li key={s.slug} className="flex gap-3">
+                          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent/20 font-mono text-xs text-accent">
+                            {i + 1}
+                          </span>
+                          <div>
+                            <p className="text-sm font-medium text-navy-foreground">
+                              {s.code} · {s.title}
+                            </p>
+                            <p className="mt-0.5 text-sm leading-relaxed text-navy-foreground/60">
+                              {NEXT_ACTION[s.slug]}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
                     </ol>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Chi tiết đầy đủ + hành động */}
+              <div className="mx-auto mt-10 max-w-2xl">
+                <Reveal delay={100}>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                    <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                      Chi tiết cả 5 giai đoạn
+                    </p>
+                    <div className="mt-4 space-y-3">
+                      {scores.map((r) => (
+                        <div key={r.slug}>
+                          <div className="flex items-center justify-between text-xs">
+                            <span
+                              className={
+                                r.slug === weakest.slug
+                                  ? 'font-medium text-accent'
+                                  : 'text-navy-foreground/70'
+                              }
+                            >
+                              {r.code} · {r.title}
+                            </span>
+                            <span className="font-mono text-navy-foreground/50">
+                              {r.value}%
+                            </span>
+                          </div>
+                          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
+                            <div
+                              className={
+                                r.slug === weakest.slug
+                                  ? 'h-full rounded-full bg-accent'
+                                  : 'h-full rounded-full bg-accent/50'
+                              }
+                              style={{ width: `${r.value}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </Reveal>
 
-                <Reveal delay={260}>
-                  <div className="mt-8 flex flex-wrap gap-3">
+                <Reveal delay={160}>
+                  <div className="mt-6 flex flex-wrap gap-3">
                     <button
                       type="button"
                       onClick={() => scrollToFramework(weakest.slug)}
@@ -438,61 +621,6 @@ export function BusinessAssessment() {
                   </div>
                 </Reveal>
               </div>
-
-              <Reveal delay={200}>
-                <div className="rounded-2xl border border-white/10 bg-[oklch(0.26_0.05_258)] p-6 shadow-2xl">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs uppercase tracking-widest text-navy-foreground/50">
-                        Mức độ sẵn sàng tăng trưởng
-                      </p>
-                      <p className="mt-1 text-3xl font-semibold tracking-tight">
-                        {overall}
-                        <span className="text-navy-foreground/50">/100</span>
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <span className="inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
-                        {maturity.label}
-                      </span>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-xs leading-relaxed text-navy-foreground/50">
-                    {maturity.desc}
-                  </p>
-
-                  <div className="mt-6 space-y-3 border-t border-white/10 pt-6">
-                    {scores.map((r) => (
-                      <div key={r.slug}>
-                        <div className="flex items-center justify-between text-xs">
-                          <span
-                            className={
-                              r.slug === weakest.slug
-                                ? 'font-medium text-accent'
-                                : 'text-navy-foreground/70'
-                            }
-                          >
-                            {r.code} · {r.title}
-                          </span>
-                          <span className="font-mono text-navy-foreground/50">
-                            {r.value}%
-                          </span>
-                        </div>
-                        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-                          <div
-                            className={
-                              r.slug === weakest.slug
-                                ? 'h-full rounded-full bg-accent'
-                                : 'h-full rounded-full bg-accent/50'
-                            }
-                            style={{ width: `${r.value}%` }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Reveal>
             </div>
           )}
         </div>

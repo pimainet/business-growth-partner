@@ -3,7 +3,7 @@ import { Logo } from '@/components/logo'
 const COLUMNS = [
   {
     title: 'Hệ thống',
-    links: ['GROW-5™', 'Giải pháp', 'Theo ngành', 'Câu chuyện triển khai'],
+    links: ['Đánh giá doanh nghiệp', 'Phương pháp', 'Giải pháp', 'Dự án'],
   },
   {
     title: 'Công ty',
