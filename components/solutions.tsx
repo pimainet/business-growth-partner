@@ -14,31 +14,31 @@ const SOLUTIONS = [
     icon: UsersRound,
     title: 'Thu hút khách hàng',
     desc: 'Chiến lược hiện diện đa kênh, nội dung và SEO giúp đúng khách hàng tìm thấy bạn.',
-    tag: 'Visibility',
+    tag: 'Hiện diện',
   },
   {
     icon: MousePointerClick,
     title: 'Chuyển đổi khách hàng',
     desc: 'Tối ưu website, landing page và hành trình để biến quan tâm thành doanh thu.',
-    tag: 'Conversion',
+    tag: 'Chuyển đổi',
   },
   {
     icon: Cog,
     title: 'Tự động hóa vận hành',
     desc: 'Kết nối công cụ, chuẩn hóa quy trình và tự động hóa tác vụ lặp lại.',
-    tag: 'Operation',
+    tag: 'Vận hành',
   },
   {
     icon: Database,
     title: 'Quản trị dữ liệu',
     desc: 'Hợp nhất dữ liệu và dashboard để đo lường điều thực sự tạo ra tăng trưởng.',
-    tag: 'Data',
+    tag: 'Dữ liệu',
   },
   {
     icon: Rocket,
     title: 'Tăng trưởng liên tục',
     desc: 'Vòng lặp thử nghiệm và tối ưu để tăng trưởng trở nên có thể dự đoán.',
-    tag: 'Growth',
+    tag: 'Tăng trưởng',
   },
 ]
 

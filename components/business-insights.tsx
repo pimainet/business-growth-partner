@@ -33,7 +33,7 @@ export function BusinessInsights() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            eyebrow="Insights"
+            eyebrow="Kiến thức"
             title="Góc nhìn về tăng trưởng doanh nghiệp"
           />
           <Reveal delay={160}>

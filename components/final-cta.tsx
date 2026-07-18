@@ -3,12 +3,20 @@ import { Reveal } from '@/components/reveal'
 
 export function FinalCta() {
   return (
+<<<<<<< HEAD
     <section id="final-cta" className="py-32 lg:py-40">
+=======
+    <section id="final-cta" className="py-24 lg:py-32">
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
       <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
         <Reveal>
           <h2 className="text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Bắt đầu bằng một{' '}
+<<<<<<< HEAD
             <span className="font-serif font-normal italic text-foreground">
+=======
+            <span className="font-serif font-normal italic text-accent">
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
               cuộc trao đổi.
             </span>
           </h2>

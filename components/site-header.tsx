@@ -6,11 +6,11 @@ import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { label: 'Framework', href: '#framework' },
+  { label: 'GROW-5™', href: '#framework' },
   { label: 'Giải pháp', href: '#solutions' },
   { label: 'Ngành', href: '#industries' },
-  { label: 'Case study', href: '#case-study' },
-  { label: 'Insights', href: '#insights' },
+  { label: 'Câu chuyện triển khai', href: '#case-study' },
+  { label: 'Kiến thức', href: '#insights' },
 ]
 
 export function SiteHeader() {
@@ -55,7 +55,7 @@ export function SiteHeader() {
             href="#assessment"
             className="text-sm font-medium text-foreground transition-colors hover:text-accent"
           >
-            Đăng nhập
+            Đánh giá doanh nghiệp
           </a>
           <a
             href="#final-cta"

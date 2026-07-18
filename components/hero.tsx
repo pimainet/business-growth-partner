@@ -19,6 +19,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.5]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-background to-transparent" />
 
+<<<<<<< HEAD
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 py-28 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:px-8 lg:py-36">
         <div className="flex flex-col justify-center">
           <Reveal>
@@ -35,6 +36,30 @@ export function Hero() {
               Chúng tôi giúp doanh nghiệp vừa và nhỏ xây dựng website, SEO,
               AI và tự động hóa thành một hệ thống số có thể vận hành và
               cải tiến liên tục.
+=======
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:px-8 lg:py-28">
+        <div className="flex flex-col justify-center">
+          <Reveal>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-accent" />
+              BGS™ — Business Growth System
+            </span>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <p className="mt-7 text-lg font-medium text-muted-foreground/70 sm:text-xl">
+              Website chỉ là một phần của hệ thống tăng trưởng.
+            </p>
+            <h1 className="mt-3 text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-[3.05rem]">
+              Điều doanh nghiệp thực sự cần là một hệ thống giúp khách hàng{' '}
+              <span className="font-serif italic font-normal text-accent">
+                tìm thấy, tin tưởng và lựa chọn bạn.
+              </span>
+            </h1>
+            <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+              Khi hệ thống vận hành đúng, doanh nghiệp không còn phụ thuộc
+              vào từng chiến dịch hay từng cá nhân để tăng trưởng.
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
             </p>
           </Reveal>
 
@@ -98,8 +123,13 @@ export function Hero() {
                     />
                   )}
                   <div className="flex items-center gap-4 rounded-xl border border-transparent bg-secondary/60 p-3 transition-colors hover:border-border hover:bg-secondary">
+<<<<<<< HEAD
                     <span className="grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-background text-foreground/70">
                       <step.icon className="size-5" strokeWidth={1.5} />
+=======
+                    <span className="grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-background text-accent">
+                      <step.icon className="size-5" />
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
                     </span>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-foreground">

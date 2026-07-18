@@ -39,7 +39,11 @@ export function Industries() {
   return (
     <section
       id="industries"
+<<<<<<< HEAD
       className="border-b border-border bg-secondary/40 py-32 lg:py-40"
+=======
+      className="border-b border-border bg-secondary/40 py-24 lg:py-32"
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
@@ -74,7 +78,11 @@ export function Industries() {
 
                 <div className="mt-4 grid grid-rows-[0fr] transition-all duration-500 group-hover:mt-5 group-hover:grid-rows-[1fr]">
                   <ul className="overflow-hidden">
+<<<<<<< HEAD
                     <li className="mb-2 text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+=======
+                    <li className="mb-2 text-[11px] font-medium uppercase tracking-widest text-accent">
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
                       Điểm nghẽn thường gặp
                     </li>
                     {ind.pains.map((pain) => (

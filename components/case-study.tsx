@@ -13,7 +13,7 @@ export function CaseStudy() {
     <section id="case-study" className="border-b border-border py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Case study"
+          eyebrow="Câu chuyện triển khai"
           title="Case study đầu tiên sẽ là chính doanh nghiệp của bạn."
           description="Chúng tôi đang xây dựng thư viện case study minh bạch — mỗi dự án đều được sự đồng ý của khách hàng trước khi công bố. 10 doanh nghiệp đầu tiên là nơi thư viện đó bắt đầu."
         />

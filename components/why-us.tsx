@@ -31,7 +31,11 @@ const PRINCIPLES = [
 
 export function WhyUs() {
   return (
+<<<<<<< HEAD
     <section className="border-b border-border bg-secondary/40 py-32 lg:py-40">
+=======
+    <section className="border-b border-border bg-secondary/40 py-24 lg:py-32">
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
           eyebrow="Nguyên tắc"
@@ -46,7 +50,11 @@ export function WhyUs() {
               delay={(i % 2) * 90}
               className="group flex gap-6 border-border py-8 md:px-8 md:odd:border-r md:[&:nth-child(-n+3)]:border-b md:first:pl-0 md:even:pr-0"
             >
+<<<<<<< HEAD
               <span className="font-mono text-sm text-muted-foreground">{p.n}</span>
+=======
+              <span className="font-mono text-sm text-accent">{p.n}</span>
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
               <div>
                 <h3 className="text-xl font-semibold tracking-tight text-foreground">
                   {p.title}

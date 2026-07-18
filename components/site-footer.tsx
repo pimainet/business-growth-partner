@@ -3,11 +3,11 @@ import { Logo } from '@/components/logo'
 const COLUMNS = [
   {
     title: 'Hệ thống',
-    links: ['Framework', 'Giải pháp', 'Theo ngành', 'Case study'],
+    links: ['GROW-5™', 'Giải pháp', 'Theo ngành', 'Câu chuyện triển khai'],
   },
   {
     title: 'Công ty',
-    links: ['Về chúng tôi', 'Insights', 'Tuyển dụng', 'Liên hệ'],
+    links: ['Về chúng tôi', 'Kiến thức', 'Tuyển dụng', 'Liên hệ'],
   },
 ]
 

@@ -39,7 +39,11 @@ const PROBLEMS = [
 
 export function BusinessProblems() {
   return (
+<<<<<<< HEAD
     <section className="border-b border-border py-32 lg:py-40">
+=======
+    <section className="border-b border-border py-24 lg:py-32">
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
           eyebrow="Chẩn đoán"
@@ -55,7 +59,11 @@ export function BusinessProblems() {
               className="group relative flex flex-col bg-card p-8 transition-colors hover:bg-secondary/60"
             >
               <div className="flex items-start justify-between">
+<<<<<<< HEAD
                 <span className="grid size-11 place-items-center rounded-lg border border-border bg-background text-foreground/70 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+=======
+                <span className="grid size-11 place-items-center rounded-lg border border-border bg-background text-accent transition-colors group-hover:border-accent/40">
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
                   <p.icon className="size-5" strokeWidth={1.5} />
                 </span>
                 <ArrowUpRight className="size-4 text-muted-foreground/50 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />

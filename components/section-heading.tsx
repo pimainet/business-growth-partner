@@ -29,7 +29,11 @@ export function SectionHeading({
           <p
             className={cn(
               'text-xs font-medium uppercase tracking-[0.2em]',
+<<<<<<< HEAD
               dark ? 'text-navy-foreground/60' : 'text-muted-foreground',
+=======
+              dark ? 'text-navy-foreground/60' : 'text-accent',
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
             )}
           >
             {eyebrow}
@@ -39,7 +43,11 @@ export function SectionHeading({
       <Reveal delay={80}>
         <h2
           className={cn(
+<<<<<<< HEAD
             'mt-4 text-balance text-3xl font-bold leading-[1.12] tracking-[-0.015em] sm:text-4xl lg:text-[2.85rem]',
+=======
+            'mt-4 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem]',
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
             dark ? 'text-navy-foreground' : 'text-foreground',
           )}
         >
@@ -50,7 +58,11 @@ export function SectionHeading({
         <Reveal delay={160}>
           <p
             className={cn(
+<<<<<<< HEAD
               'mt-5 max-w-2xl text-pretty text-lg leading-[1.7]',
+=======
+              'mt-5 text-pretty text-lg leading-relaxed',
+>>>>>>> 1492dc544b66016150f70b7a6a84c333e78dd098
               dark ? 'text-navy-foreground/70' : 'text-muted-foreground',
               align === 'center' && 'mx-auto',
             )}

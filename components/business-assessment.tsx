@@ -192,7 +192,7 @@ export function BusinessAssessment() {
   function downloadReport() {
     const date = new Date().toLocaleDateString('vi-VN')
     const lines = [
-      'BGS™ GROWTH DIAGNOSTIC — BÁO CÁO CHẨN ĐOÁN',
+      'BGS™ ĐÁNH GIÁ DOANH NGHIỆP — BÁO CÁO CHẨN ĐOÁN',
       `Ngày thực hiện: ${date}`,
       '',
       `ĐIỂM TỔNG THỂ: ${overall}/100`,
@@ -237,7 +237,7 @@ export function BusinessAssessment() {
               <Reveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
                   <span className="size-1.5 rounded-full bg-accent" />
-                  BGS™ Growth Diagnostic
+                  BGS™ Đánh giá doanh nghiệp
                 </span>
               </Reveal>
               <Reveal delay={80}>
@@ -346,7 +346,7 @@ export function BusinessAssessment() {
                 <Reveal>
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
                     <span className="size-1.5 rounded-full bg-accent" />
-                    Kết quả Growth Diagnostic của bạn
+                    Kết quả đánh giá của bạn
                   </span>
                 </Reveal>
                 <Reveal delay={80}>
@@ -444,7 +444,7 @@ export function BusinessAssessment() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs uppercase tracking-widest text-navy-foreground/50">
-                        Growth Readiness
+                        Mức độ sẵn sàng tăng trưởng
                       </p>
                       <p className="mt-1 text-3xl font-semibold tracking-tight">
                         {overall}
