@@ -21,13 +21,13 @@ export default function Page() {
         {/* CEO thấy chính mình */}
         <Hero />
         <RelatableScenario />
-        {/* Vấn đề & nguyên nhân */}
+        {/* Audit — để khách TỰ khám phá vấn đề, trước khi đọc bất kỳ giải thích nào */}
+        <BusinessAssessment />
+        {/* Vấn đề & nguyên nhân — đọc sau khi đã tự nhận ra, không phải trước */}
         <BusinessProblems />
-        {/* Gặp phương pháp — hiểu Framework */}
+        {/* Phương pháp giải quyết đúng điểm nghẽn vừa phát hiện */}
         <GrowthFramework />
         <ManifestoStrip />
-        {/* Audit — áp dụng Framework vào chính doanh nghiệp họ */}
-        <BusinessAssessment />
         {/* Bằng chứng & lộ trình đồng hành */}
         <Solutions />
         <Industries />

@@ -55,7 +55,7 @@ export function SiteHeader() {
             href="#assessment"
             className="text-sm font-medium text-foreground transition-colors hover:text-accent"
           >
-            Đánh giá doanh nghiệp
+            Xem điểm nghẽn của tôi
           </a>
           <a
             href="#final-cta"

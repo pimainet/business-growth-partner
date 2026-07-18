@@ -44,7 +44,7 @@ export function Hero() {
                 href="#assessment"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent"
               >
-                Đánh giá hệ thống của doanh nghiệp bạn
+                Xem doanh nghiệp của tôi đang nghẽn ở đâu
                 <ArrowRight className="size-4" />
               </a>
               <a

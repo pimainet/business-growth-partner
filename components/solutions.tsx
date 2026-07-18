@@ -95,7 +95,7 @@ export function Solutions() {
               href="#assessment"
               className="mt-6 inline-flex w-fit items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent"
             >
-              Đánh giá doanh nghiệp
+              Xem điểm nghẽn của tôi
               <ArrowRight className="size-4" />
             </a>
           </Reveal>
