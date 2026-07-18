@@ -4,27 +4,27 @@ import { SectionHeading } from '@/components/section-heading'
 const PRINCIPLES = [
   {
     n: '01',
-    title: 'System Thinking',
+    title: 'Tư duy hệ thống',
     desc: 'Chúng tôi nhìn doanh nghiệp như một hệ thống, không phải tập hợp các chiến dịch rời rạc.',
   },
   {
     n: '02',
-    title: 'Data Driven',
+    title: 'Dựa trên dữ liệu',
     desc: 'Mọi quyết định dựa trên dữ liệu và bằng chứng, không dựa vào cảm tính.',
   },
   {
     n: '03',
-    title: 'Automation First',
+    title: 'Ưu tiên tự động hóa',
     desc: 'Ưu tiên tự động hóa để doanh nghiệp mở rộng mà không tăng độ phức tạp.',
   },
   {
     n: '04',
-    title: 'Long-term Partnership',
+    title: 'Đồng hành dài hạn',
     desc: 'Chúng tôi đồng hành dài hạn như một đối tác tăng trưởng, không phải nhà cung cấp.',
   },
   {
     n: '05',
-    title: 'Business Before Technology',
+    title: 'Kinh doanh trước, công nghệ sau',
     desc: 'Bài toán kinh doanh luôn đứng trước công nghệ — công nghệ chỉ là công cụ.',
   },
 ]

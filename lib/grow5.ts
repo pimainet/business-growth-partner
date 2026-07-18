@@ -11,7 +11,9 @@ export interface Grow5Stage {
   n: string
   slug: Grow5Slug
   code: string
+  /** Tên chính, hiển thị nổi bật — tiếng Việt */
   title: string
+  /** Tên gốc tiếng Anh, hiển thị nhỏ/phụ */
   sub: string
   icon: LucideIcon
 }
@@ -21,40 +23,40 @@ export const GROW5_STAGES: Grow5Stage[] = [
     n: '01',
     slug: 'market-visibility',
     code: 'ATTRACT',
-    title: 'Market Visibility',
-    sub: 'Định vị & hiện diện',
+    title: 'Hiện diện thị trường',
+    sub: 'Market Visibility',
     icon: Eye,
   },
   {
     n: '02',
     slug: 'customer-conversion',
     code: 'CONVERT',
-    title: 'Customer Conversion',
-    sub: 'Chuyển đổi khách hàng',
+    title: 'Chuyển đổi khách hàng',
+    sub: 'Customer Conversion',
     icon: Workflow,
   },
   {
     n: '03',
     slug: 'operational-excellence',
     code: 'OPERATE',
-    title: 'Operational Excellence',
-    sub: 'Chuẩn hóa vận hành',
+    title: 'Chuẩn hóa vận hành',
+    sub: 'Operational Excellence',
     icon: RefreshCw,
   },
   {
     n: '04',
     slug: 'business-intelligence',
     code: 'INTELLIGENCE',
-    title: 'Business Intelligence',
-    sub: 'Ra quyết định bằng dữ liệu',
+    title: 'Ra quyết định bằng dữ liệu',
+    sub: 'Business Intelligence',
     icon: LineChart,
   },
   {
     n: '05',
     slug: 'continuous-improvement',
     code: 'EVOLVE',
-    title: 'Continuous Improvement',
-    sub: 'Tối ưu liên tục',
+    title: 'Tối ưu liên tục',
+    sub: 'Continuous Improvement',
     icon: Repeat,
   },
 ]

@@ -22,8 +22,8 @@ const STAGE_DETAILS: Record<
     output: 'Đúng khách hàng mục tiêu nhận diện và tin tưởng thương hiệu',
     result: 'Mục tiêu của giai đoạn này là để khách hàng tiềm năng tìm đến chủ động, đều đặn theo tháng',
     why: 'Không có visibility đúng chỗ, mọi nỗ lực bán hàng phía sau đều phải bơi ngược dòng.',
-    tools: ['SEO', 'Google Maps', 'Content', 'Ads'],
-    kpi: ['Organic Traffic', 'Maps Calls', 'Impression', 'Brand Search'],
+    tools: ['SEO', 'Google Maps', 'Nội dung', 'Quảng cáo'],
+    kpi: ['Lượt truy cập tự nhiên', 'Cuộc gọi từ Maps', 'Lượt hiển thị', 'Tìm kiếm thương hiệu'],
     mistakes: [
       'Chỉ chạy quảng cáo, không đầu tư SEO nền tảng',
       'Không tối ưu hồ sơ Google Maps',
@@ -36,8 +36,8 @@ const STAGE_DETAILS: Record<
     output: 'Tỷ lệ khách quan tâm trở thành khách hàng thực tế tăng lên',
     result: 'Mục tiêu của giai đoạn này là giúp đội Sales chốt đơn nhanh hơn và nhất quán hơn giữa các nhân sự',
     why: 'Có nhiều khách quan tâm mà chuyển đổi kém thì chi phí marketing chỉ đang bị đốt.',
-    tools: ['Website', 'Landing Page', 'CRM', 'Chatbot AI'],
-    kpi: ['Lead', 'Conversion Rate', 'Booking', 'Quote Rate'],
+    tools: ['Website', 'Trang đích', 'CRM', 'Chatbot AI'],
+    kpi: ['Khách tiềm năng', 'Tỷ lệ chuyển đổi', 'Lượt đặt lịch', 'Tỷ lệ báo giá'],
     mistakes: [
       'Phản hồi khách hàng chậm, không có quy trình theo dõi',
       'Không có kịch bản tư vấn thống nhất giữa các nhân sự Sales',
@@ -50,7 +50,7 @@ const STAGE_DETAILS: Record<
     output: 'Vận hành trơn tru, ổn định dù quy mô đơn hàng tăng lên',
     result: 'Mục tiêu của giai đoạn này là giảm sai sót thủ công và rút ngắn thời gian xử lý mỗi đơn hàng',
     why: 'Tăng trưởng mà vận hành không theo kịp sẽ tự phá vỡ trải nghiệm khách hàng.',
-    tools: ['CRM', 'Automation', 'AI Workflow'],
+    tools: ['CRM', 'Tự động hóa', 'Quy trình AI'],
     kpi: ['Thời gian báo giá', 'Số giờ tiết kiệm', 'Quy trình tự động hóa'],
     mistakes: [
       'Toàn bộ quy trình phụ thuộc vào trí nhớ một cá nhân',
@@ -64,8 +64,8 @@ const STAGE_DETAILS: Record<
     output: 'Một bức tranh toàn cảnh, thống nhất về hiệu quả kinh doanh',
     result: 'Mục tiêu của giai đoạn này là giúp lãnh đạo ra quyết định dựa trên dữ liệu, không còn phỏng đoán',
     why: 'Không thấy toàn cảnh, doanh nghiệp chỉ đang phản ứng thay vì dẫn dắt tăng trưởng.',
-    tools: ['Dashboard', 'Data Warehouse', 'AI Analytics'],
-    kpi: ['Report Accuracy', 'Decision Speed', 'Data Coverage'],
+    tools: ['Bảng điều khiển', 'Kho dữ liệu', 'Phân tích AI'],
+    kpi: ['Độ chính xác báo cáo', 'Tốc độ ra quyết định', 'Độ phủ dữ liệu'],
     mistakes: [
       'Dữ liệu nằm rải rác ở nhiều file, nhiều người quản lý riêng lẻ',
       'Không ai chịu trách nhiệm cập nhật báo cáo định kỳ',
@@ -78,8 +78,8 @@ const STAGE_DETAILS: Record<
     output: 'Hệ thống tự cải thiện qua mỗi vòng lặp, không đứng yên',
     result: 'Mục tiêu của giai đoạn này là để tăng trưởng trở thành năng lực nội tại, không phụ thuộc may rủi',
     why: 'Đây là điều tách một hệ thống tăng trưởng thật sự khỏi một chiến dịch ngắn hạn.',
-    tools: ['A/B Testing', 'Reporting', 'AI Optimization'],
-    kpi: ['Test Velocity', 'Improvement Rate', 'Retention'],
+    tools: ['A/B Testing', 'Báo cáo', 'Tối ưu bằng AI'],
+    kpi: ['Tốc độ thử nghiệm', 'Tỷ lệ cải thiện', 'Tỷ lệ giữ chân'],
     mistakes: [
       'Chạy chiến dịch xong không tổng kết bài học',
       'Không có lịch đánh giá định kỳ, chỉ làm khi có vấn đề',
@@ -94,9 +94,9 @@ const STAGES = GROW5_STAGES.map((stage) => ({
 }))
 
 const COLUMNS = [
-  { key: 'input', label: 'Input' },
-  { key: 'process', label: 'Process' },
-  { key: 'output', label: 'Output' },
+  { key: 'input', label: 'Đầu vào' },
+  { key: 'process', label: 'Cách làm' },
+  { key: 'output', label: 'Đầu ra' },
   { key: 'result', label: 'Kết quả' },
 ] as const
 
