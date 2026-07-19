@@ -60,20 +60,22 @@ export function BusinessProblems() {
           <div className="flex flex-col">
             {PROBLEMS.map((p, i) => (
               <Reveal key={p.title} delay={i * 70}>
-                <div className="group grid grid-cols-[auto_1fr] items-start gap-5 border-b border-border py-7 last:border-0 sm:gap-7">
-                  <span className="relative z-10 grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-background text-foreground/70 transition-colors group-hover:border-accent/40 group-hover:text-accent">
-                    <p.icon className="size-5" strokeWidth={1.5} />
-                  </span>
-                  <div className="flex flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-                    <div>
-                      <h3 className="text-lg font-semibold tracking-tight text-foreground">
-                        {p.title}
-                      </h3>
-                      <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                        {p.desc}
-                      </p>
+                <div className="border-b border-border last:border-0">
+                  <div className="hover-premium group grid grid-cols-[auto_1fr] items-start gap-5 rounded-xl border border-transparent px-2 py-7 sm:gap-7 sm:px-4 sm:hover:border-border sm:hover:bg-card">
+                    <span className="relative z-10 grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-background text-foreground/70 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                      <p.icon className="size-5" strokeWidth={1.5} />
+                    </span>
+                    <div className="flex flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                      <div>
+                        <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                          {p.title}
+                        </h3>
+                        <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                          {p.desc}
+                        </p>
+                      </div>
+                      <ArrowUpRight className="hidden size-4 shrink-0 text-muted-foreground/50 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100 sm:block" />
                     </div>
-                    <ArrowUpRight className="hidden size-4 shrink-0 text-muted-foreground/50 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100 sm:block" />
                   </div>
                 </div>
               </Reveal>

@@ -9,7 +9,7 @@ const SIGNALS = [
 
 export function RelatableScenario() {
   return (
-    <section className="border-b border-border py-28 lg:py-32">
+    <section className="border-b border-border bg-secondary/30 py-28 lg:py-32">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
         <Reveal>
           <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">

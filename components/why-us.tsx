@@ -45,7 +45,7 @@ const TRAJECTORY = [
  */
 export function WhyUs() {
   return (
-    <section className="border-b border-border bg-secondary/40 py-32 lg:py-40">
+    <section className="border-b border-border py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
           eyebrow="Nguyên tắc"

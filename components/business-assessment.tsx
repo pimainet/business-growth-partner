@@ -135,10 +135,8 @@ function getPriorityTier(score: number) {
   return { label: 'Đã ổn định', tone: 'low' as const }
 }
 
-function scrollToFramework(slug: Grow5Slug) {
-  const isMobile = window.matchMedia('(max-width: 1023px)').matches
-  const id = isMobile ? `framework-m-${slug}` : `framework-${slug}`
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+function scrollToFramework() {
+  document.getElementById('framework')?.scrollIntoView({ behavior: 'smooth' })
 }
 
 export function BusinessAssessment() {
@@ -591,7 +589,7 @@ export function BusinessAssessment() {
                   <div className="mt-6 flex flex-wrap gap-3">
                     <button
                       type="button"
-                      onClick={() => scrollToFramework(weakest.slug)}
+                      onClick={() => scrollToFramework()}
                       className="inline-flex items-center gap-2 rounded-full bg-background px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
                     >
                       Xem giai đoạn {weakest.title} trong GROW-5™

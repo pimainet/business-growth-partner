@@ -64,13 +64,13 @@
   --secondary-foreground: oklch(0.26 0.055 258);
   --muted: oklch(0.968 0.004 260);
   --muted-foreground: oklch(0.5 0.012 260);
-  --accent: oklch(0.58 0.2 237);
+  --accent: oklch(0.6 0.15 155);
   --accent-foreground: oklch(0.99 0.003 260);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.005 260);
   --input: oklch(0.92 0.005 260);
-  --ring: oklch(0.58 0.2 237);
-  --chart-1: oklch(0.58 0.2 237);
+  --ring: oklch(0.6 0.15 155);
+  --chart-1: oklch(0.6 0.15 155);
   --chart-2: oklch(0.26 0.055 258);
   --chart-3: oklch(0.65 0.13 250);
   --chart-4: oklch(0.75 0.08 245);
@@ -257,16 +257,17 @@
   }
 }
 
-/* Hover có chủ đích: scale 1.02 + shadow, 150ms — không phải chỉ opacity */
+/* Hover có chủ đích: dịch 4px + shadow tăng + border đổi màu — không phải chỉ opacity */
 .hover-premium {
   transition:
-    transform 150ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 150ms ease;
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms ease;
 }
 .hover-premium:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 40px -20px color-mix(in oklch, var(--foreground) 20%, transparent);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -24px color-mix(in oklch, var(--foreground) 22%, transparent);
+  border-color: color-mix(in oklch, var(--accent) 45%, transparent);
 }
 
 /* Button glow — dùng cho CTA chính */
@@ -280,4 +281,54 @@
   box-shadow:
     0 0 0 1px color-mix(in oklch, var(--accent) 45%, transparent),
     0 10px 28px -10px color-mix(in oklch, var(--accent) 60%, transparent);
+}
+
+/* Button shine sweep — "gradient chạy" khi hover */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    color-mix(in oklch, white 55%, transparent),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 550ms ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  left: 130%;
+}
+
+/* Brand gradient — dùng cho logo mark / dấu nhấn thương hiệu */
+.bg-gradient-brand {
+  background: linear-gradient(135deg, var(--accent), var(--navy));
+}
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--accent), var(--navy));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-toast-in {
+  animation: toast-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }

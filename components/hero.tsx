@@ -3,6 +3,7 @@ import { Reveal } from '@/components/reveal'
 import { CountUp } from '@/components/count-up'
 import { Grow5Glyph } from '@/components/grow5-glyph'
 import { BusinessScoreDashboard } from '@/components/business-score-dashboard'
+import { ParallaxTilt } from '@/components/parallax-tilt'
 
 const STATS = [
   { v: 10, suffix: '+', l: 'năm kinh nghiệm hệ thống' },
@@ -54,7 +55,7 @@ export function Hero() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#assessment"
-                className="btn-glow inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-accent"
+                className="btn-glow btn-shine inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-accent"
               >
                 Xem doanh nghiệp của tôi đang nghẽn ở đâu
                 <ArrowRight className="size-4" />
@@ -87,7 +88,9 @@ export function Hero() {
 
         {/* Hero Object: đây chính là sản phẩm — Business Score Dashboard */}
         <Reveal delay={200} className="flex items-center">
-          <BusinessScoreDashboard />
+          <ParallaxTilt className="w-full">
+            <BusinessScoreDashboard />
+          </ParallaxTilt>
         </Reveal>
       </div>
     </section>

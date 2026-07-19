@@ -29,7 +29,7 @@ const POSTS = [
 
 export function BusinessInsights() {
   return (
-    <section id="insights" className="border-b border-border py-32 lg:py-40">
+    <section id="insights" className="border-b border-border bg-secondary/30 py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading

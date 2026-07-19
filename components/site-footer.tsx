@@ -1,4 +1,5 @@
 import { Logo } from '@/components/logo'
+import { Grow5Glyph } from '@/components/grow5-glyph'
 
 const COLUMNS = [
   {
@@ -13,14 +14,21 @@ const COLUMNS = [
 
 const SOCIAL = ['LinkedIn', 'Facebook', 'YouTube']
 
+/**
+ * Footer tối — bước cuối của nhịp nền toàn trang
+ * (trắng → xám → trắng → gradient → dark footer).
+ */
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-secondary/40">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <footer className="relative overflow-hidden bg-navy">
+      <div className="pointer-events-none absolute inset-0 bg-grid-navy opacity-40" />
+      <Grow5Glyph className="pointer-events-none absolute -right-16 -top-24 size-80 text-navy-foreground/[0.04]" />
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            <Logo variant="dark" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-foreground/55">
               Đối tác xây dựng hệ thống tăng trưởng cho doanh nghiệp Việt Nam.
               Business before technology.
             </p>
@@ -28,7 +36,7 @@ export function SiteFooter() {
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="text-sm font-semibold text-foreground">
+              <h3 className="text-sm font-semibold text-navy-foreground">
                 {col.title}
               </h3>
               <ul className="mt-4 space-y-3">
@@ -36,7 +44,7 @@ export function SiteFooter() {
                   <li key={link}>
                     <a
                       href="#top"
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-navy-foreground/55 transition-colors hover:text-navy-foreground"
                     >
                       {link}
                     </a>
@@ -47,12 +55,14 @@ export function SiteFooter() {
           ))}
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Liên hệ</h3>
-            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+            <h3 className="text-sm font-semibold text-navy-foreground">
+              Liên hệ
+            </h3>
+            <ul className="mt-4 space-y-3 text-sm text-navy-foreground/55">
               <li>
                 <a
                   href="mailto:hello@systema.vn"
-                  className="transition-colors hover:text-foreground"
+                  className="transition-colors hover:text-navy-foreground"
                 >
                   hello@systema.vn
                 </a>
@@ -64,7 +74,7 @@ export function SiteFooter() {
                 <a
                   key={s}
                   href="#top"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-sm text-navy-foreground/55 transition-colors hover:text-navy-foreground"
                 >
                   {s}
                 </a>
@@ -73,13 +83,13 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 text-sm text-navy-foreground/55 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} BGS™. Bảo lưu mọi quyền.</p>
           <div className="flex gap-6">
-            <a href="#top" className="transition-colors hover:text-foreground">
+            <a href="#top" className="transition-colors hover:text-navy-foreground">
               Điều khoản
             </a>
-            <a href="#top" className="transition-colors hover:text-foreground">
+            <a href="#top" className="transition-colors hover:text-navy-foreground">
               Bảo mật
             </a>
           </div>
