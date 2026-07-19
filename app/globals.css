@@ -319,6 +319,24 @@
   color: transparent;
 }
 
+/* Micro-interaction: underline mọc ra khi hover — dùng cho nav link */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1.5px;
+  width: 0%;
+  background: var(--accent);
+  transition: width 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
 @keyframes toast-in {
   from {
     opacity: 0;

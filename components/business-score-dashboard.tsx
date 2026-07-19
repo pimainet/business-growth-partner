@@ -145,7 +145,9 @@ export function BusinessScoreDashboard() {
             {GROW5_STAGES.map((stage) => {
               const v = liveScores[stage.slug]
               const weak = v < 45
+              const mid = v >= 45 && v < 70
               const isHovered = hovered === stage.slug
+              const status = weak ? 'Khẩn cấp' : mid ? 'Cần chú ý' : 'Ổn định'
               return (
                 <div
                   key={stage.slug}
@@ -154,14 +156,36 @@ export function BusinessScoreDashboard() {
                   className="relative -mx-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-secondary/60"
                 >
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-medium text-foreground">
+                    <span className="inline-flex items-center gap-1.5 font-medium text-foreground">
+                      <span
+                        className={
+                          weak
+                            ? 'size-1.5 rounded-full bg-destructive'
+                            : mid
+                              ? 'size-1.5 rounded-full bg-amber-500'
+                              : 'size-1.5 rounded-full bg-accent'
+                        }
+                      />
                       {stage.title}
                     </span>
-                    <CountUp
-                      value={v}
-                      suffix="%"
-                      className="font-mono text-muted-foreground tabular-nums"
-                    />
+                    <span className="flex items-center gap-2">
+                      <span
+                        className={
+                          weak
+                            ? 'text-[10px] font-medium text-destructive'
+                            : mid
+                              ? 'text-[10px] font-medium text-amber-600'
+                              : 'text-[10px] font-medium text-accent'
+                        }
+                      >
+                        {status}
+                      </span>
+                      <CountUp
+                        value={v}
+                        suffix="%"
+                        className="font-mono text-muted-foreground tabular-nums"
+                      />
+                    </span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-secondary">
                     <div
@@ -178,10 +202,6 @@ export function BusinessScoreDashboard() {
                     <div className="absolute right-2 top-full z-20 mt-1.5 animate-toast-in whitespace-nowrap rounded-lg border border-border bg-popover px-3 py-2 text-[11px] leading-relaxed text-popover-foreground shadow-lg">
                       <span className="font-medium">{stage.code}</span> ·{' '}
                       {stage.sub}
-                      <br />
-                      <span className="text-muted-foreground">
-                        Ưu tiên: {weak ? 'Cao' : v < 70 ? 'Trung bình' : 'Ổn định'}
-                      </span>
                     </div>
                   )}
                 </div>

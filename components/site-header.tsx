@@ -44,7 +44,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="nav-link text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {item.label}
             </a>
@@ -54,7 +54,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href="#final-cta"
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent"
+            className="btn-glow btn-shine inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-accent"
           >
             Đặt lịch chiến lược
             <ArrowUpRight className="size-4" />
