@@ -57,7 +57,7 @@ export function Solutions() {
             <Reveal
               key={s.title}
               delay={i * 70}
-              className="group flex flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_12px_24px_-16px_rgba(15,23,42,0.14)]"
+              className="hover-premium group flex flex-col rounded-2xl border border-border bg-card p-8 hover:border-accent/30"
             >
               <div className="flex items-center justify-between">
                 <span className="grid size-11 place-items-center rounded-lg bg-primary text-primary-foreground transition-colors group-hover:bg-accent">

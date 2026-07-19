@@ -1,14 +1,14 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
-import { GROW5_STAGES } from '@/lib/grow5'
+import { CountUp } from '@/components/count-up'
+import { Grow5Glyph } from '@/components/grow5-glyph'
+import { BusinessScoreDashboard } from '@/components/business-score-dashboard'
 
-const FLOW_DESC: Record<string, string> = {
-  'market-visibility': 'Đúng khách hàng tìm thấy bạn',
-  'customer-conversion': 'Chuyển đổi thành khách hàng',
-  'operational-excellence': 'Vận hành trơn tru, ít sai sót',
-  'business-intelligence': 'Ra quyết định bằng dữ liệu',
-  'continuous-improvement': 'Tối ưu liên tục không ngừng',
-}
+const STATS = [
+  { v: 10, suffix: '+', l: 'năm kinh nghiệm hệ thống' },
+  { v: 120, suffix: '+', l: 'doanh nghiệp đồng hành' },
+  { v: 3.4, suffix: 'x', decimals: 1, l: 'tăng trưởng trung bình' },
+]
 
 export function Hero() {
   return (
@@ -16,7 +16,19 @@ export function Hero() {
       id="top"
       className="relative overflow-hidden border-b border-border pt-16"
     >
+      {/* Layer 1: grid */}
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.5]" />
+      {/* Layer 2: ambient glow blobs — thay cho nền phẳng */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-24 top-10 size-[420px] bg-glow-accent opacity-[0.16] animate-float-slow"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 top-40 size-[460px] bg-glow-navy opacity-[0.12] animate-float-slow-delayed"
+      />
+      {/* Layer 3: brand DNA watermark */}
+      <Grow5Glyph className="pointer-events-none absolute -right-16 -top-16 size-[420px] text-foreground/[0.035] lg:size-[520px]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-background to-transparent" />
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 py-28 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:px-8 lg:py-36">
@@ -42,14 +54,14 @@ export function Hero() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#assessment"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent"
+                className="btn-glow inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-accent"
               >
                 Xem doanh nghiệp của tôi đang nghẽn ở đâu
                 <ArrowRight className="size-4" />
               </a>
               <a
                 href="#final-cta"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+                className="btn-glow inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-medium text-foreground hover:bg-secondary"
               >
                 Đặt lịch chiến lược
                 <ArrowUpRight className="size-4" />
@@ -59,14 +71,10 @@ export function Hero() {
 
           <Reveal delay={320}>
             <dl className="mt-14 grid max-w-lg grid-cols-3 gap-8 border-t border-border pt-8">
-              {[
-                { v: '10+', l: 'năm kinh nghiệm hệ thống' },
-                { v: '120+', l: 'doanh nghiệp đồng hành' },
-                { v: '3.4x', l: 'tăng trưởng trung bình' },
-              ].map((s) => (
+              {STATS.map((s) => (
                 <div key={s.l}>
                   <dt className="text-2xl font-semibold tracking-tight text-foreground">
-                    {s.v}
+                    <CountUp value={s.v} suffix={s.suffix} decimals={s.decimals ?? 0} />
                   </dt>
                   <dd className="mt-1 text-xs leading-relaxed text-muted-foreground">
                     {s.l}
@@ -77,47 +85,9 @@ export function Hero() {
           </Reveal>
         </div>
 
+        {/* Hero Object: đây chính là sản phẩm — Business Score Dashboard */}
         <Reveal delay={200} className="flex items-center">
-          <div className="relative w-full rounded-2xl border border-border bg-card p-6 shadow-[0_1px_0_0_rgba(0,0,0,0.02),0_24px_48px_-24px_rgba(15,23,42,0.15)] lg:p-8">
-            <div className="mb-6 flex items-center justify-between">
-              <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                GROW-5<span className="align-super text-[0.6em]">™</span> Framework
-              </span>
-              <span className="font-mono text-xs text-muted-foreground">
-                v.01
-              </span>
-            </div>
-
-            <ol className="relative">
-              {GROW5_STAGES.map((step, i) => (
-                <li key={step.slug} className="relative pb-5 last:pb-0">
-                  {i < GROW5_STAGES.length - 1 && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-[22px] top-12 h-[calc(100%-2.75rem)] w-px bg-border"
-                    />
-                  )}
-                  <div className="flex items-center gap-4 rounded-xl border border-transparent bg-secondary/60 p-3 transition-colors hover:border-border hover:bg-secondary">
-                    <span className="grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-background text-foreground/70">
-                      <step.icon className="size-5" strokeWidth={1.5} />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-foreground">
-                        <span className="text-accent">{step.code}</span>
-                        <span className="text-muted-foreground"> · {step.title}</span>
-                      </p>
-                      <p className="truncate text-xs text-muted-foreground">
-                        {FLOW_DESC[step.slug]}
-                      </p>
-                    </div>
-                    <span className="ml-auto font-mono text-xs text-muted-foreground">
-                      {step.n}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <BusinessScoreDashboard />
         </Reveal>
       </div>
     </section>

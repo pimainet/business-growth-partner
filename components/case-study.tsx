@@ -1,6 +1,13 @@
 import { ArrowRight, Check } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
+import { CountUp } from '@/components/count-up'
+
+const SAMPLE_METRICS = [
+  { label: 'Thời gian báo giá', before: 100, after: 12, unit: '%', flipped: true },
+  { label: 'Tỷ lệ chuyển đổi', before: 38, after: 71, unit: '%' },
+  { label: 'Điểm hệ thống GROW-5™', before: 34, after: 79, unit: '%' },
+]
 
 const INCLUDES = [
   'Chạy Growth Diagnostic thật cho doanh nghiệp của bạn',
@@ -77,19 +84,35 @@ export function CaseStudy() {
               Đây là cách mỗi case study thật sẽ được viết — cụ thể, có tên,
               có số liệu, không phải câu chung chung kiểu "chúng tôi giúp...".
             </p>
-            <div className="mt-6 max-w-md rounded-xl border border-border bg-card p-6">
+
+            {/* Dashboard mini: trước/sau theo số liệu, không phải mô tả suông */}
+            <div className="hover-premium mt-6 max-w-md rounded-xl border border-border bg-card p-6">
               <p className="text-sm font-semibold text-foreground">
                 [Tên khách hàng] — Xưởng [ngành], [số] nhân viên
               </p>
-              <div className="mt-4 space-y-2 text-sm">
-                <p className="text-muted-foreground">
-                  <span className="font-medium text-foreground">Trước:</span>{' '}
-                  [tình trạng ban đầu — ví dụ: báo giá mất 2 ngày]
-                </p>
-                <p className="text-muted-foreground">
-                  <span className="font-medium text-foreground">Sau:</span>{' '}
-                  [kết quả đo được — ví dụ: báo giá trong 15 phút]
-                </p>
+              <div className="mt-5 space-y-4">
+                {SAMPLE_METRICS.map((m) => (
+                  <div key={m.label}>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">{m.label}</span>
+                      <span className="font-mono text-foreground">
+                        <CountUp value={m.after} suffix={m.unit} />
+                      </span>
+                    </div>
+                    <div className="mt-1.5 flex h-1.5 gap-1 overflow-hidden rounded-full bg-secondary">
+                      <div
+                        className="h-full rounded-full bg-border"
+                        style={{ width: `${m.flipped ? 100 - m.before : m.before}%` }}
+                      />
+                    </div>
+                    <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-secondary">
+                      <div
+                        className="h-full rounded-full bg-accent/75 transition-[width] duration-1000 ease-out"
+                        style={{ width: `${m.after}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

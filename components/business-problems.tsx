@@ -37,6 +37,11 @@ const PROBLEMS = [
   },
 ]
 
+/**
+ * Bố cục dạng danh sách nối tiếp theo chiều dọc (thay vì lưới thẻ 3 cột)
+ * để tránh trùng nhịp với Solutions và Industries ngay bên dưới — mỗi
+ * section liền kề nên có "hình dạng" khác nhau (Visual Rhythm, điểm 1).
+ */
 export function BusinessProblems() {
   return (
     <section className="border-b border-border py-32 lg:py-40">
@@ -47,28 +52,33 @@ export function BusinessProblems() {
           description="Phần lớn doanh nghiệp không thiếu công cụ. Điều họ thiếu là một hệ thống kết nối các mảnh rời rạc lại với nhau."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {PROBLEMS.map((p, i) => (
-            <Reveal
-              key={p.title}
-              delay={i * 70}
-              className="group relative flex flex-col bg-card p-8 transition-colors hover:bg-secondary/60"
-            >
-              <div className="flex items-start justify-between">
-                <span className="grid size-11 place-items-center rounded-lg border border-border bg-background text-foreground/70 transition-colors group-hover:border-accent/40 group-hover:text-accent">
-                  <p.icon className="size-5" strokeWidth={1.5} />
-                </span>
-                <ArrowUpRight className="size-4 text-muted-foreground/50 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
-              </div>
-              <h3 className="mt-6 text-lg font-semibold tracking-tight text-foreground">
-                {p.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {p.desc}
-              </p>
-            </Reveal>
-          ))}
-          <div className="hidden bg-card lg:block" aria-hidden="true" />
+        <div className="relative mt-16 max-w-3xl">
+          <div
+            aria-hidden="true"
+            className="absolute left-[21px] top-3 hidden h-[calc(100%-3rem)] w-px bg-border sm:block"
+          />
+          <div className="flex flex-col">
+            {PROBLEMS.map((p, i) => (
+              <Reveal key={p.title} delay={i * 70}>
+                <div className="group grid grid-cols-[auto_1fr] items-start gap-5 border-b border-border py-7 last:border-0 sm:gap-7">
+                  <span className="relative z-10 grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-background text-foreground/70 transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                    <p.icon className="size-5" strokeWidth={1.5} />
+                  </span>
+                  <div className="flex flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                    <div>
+                      <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                        {p.title}
+                      </h3>
+                      <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                        {p.desc}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="hidden size-4 shrink-0 text-muted-foreground/50 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100 sm:block" />
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
