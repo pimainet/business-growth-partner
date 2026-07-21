@@ -25,8 +25,9 @@ export function FinalCta() {
         </Reveal>
         <Reveal delay={100}>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            Trước khi bàn đến giải pháp, hãy để chúng tôi chỉ đúng điểm nghẽn
-            và ưu tiên cần làm trước — bằng chính dữ liệu của doanh nghiệp bạn.
+            Trước khi bàn giải pháp, chúng tôi cùng bạn nhìn lại chính doanh
+            nghiệp mình — điểm nghẽn nằm ở đâu, vì sao nó tồn tại, và nên ưu
+            tiên xử lý điều gì trước.
           </p>
         </Reveal>
         <Reveal delay={180}>
@@ -39,10 +40,10 @@ export function FinalCta() {
               <ArrowRight className="size-4" />
             </a>
             <a
-              href="#method"
+              href="#framework"
               className="btn-glow inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-7 py-3.5 text-sm font-medium text-foreground hover:bg-secondary"
             >
-              Tìm hiểu cách chúng tôi làm việc
+              Tìm hiểu phương pháp
             </a>
           </div>
         </Reveal>

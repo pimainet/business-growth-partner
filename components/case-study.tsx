@@ -1,12 +1,12 @@
 import { ArrowRight, Check } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
-import { CountUp } from '@/components/count-up'
 
-const SAMPLE_METRICS = [
-  { label: 'Thời gian báo giá', before: 100, after: 12, unit: '%', flipped: true },
-  { label: 'Tỷ lệ chuyển đổi', before: 38, after: 71, unit: '%' },
-  { label: 'Điểm hệ thống GROW-5™', before: 34, after: 79, unit: '%' },
+const SAMPLE_DIAGNOSIS = [
+  { label: 'Observation', value: 'Khách phản hồi chậm' },
+  { label: 'Evidence', value: '73% báo giá được gửi sau 24 giờ' },
+  { label: 'Business Impact', value: 'Tỷ lệ chốt đơn thấp' },
+  { label: 'Recommendation', value: 'Ưu tiên chuẩn hóa quy trình báo giá' },
 ]
 
 const INCLUDES = [
@@ -81,36 +81,25 @@ export function CaseStudy() {
               Định dạng mẫu — chưa phải case thật
             </span>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-              Đây là cách mỗi case study thật sẽ được viết — cụ thể, có tên,
-              có số liệu, không phải câu chung chung kiểu "chúng tôi giúp...".
+              Đây là cách mỗi case study thật sẽ được viết — theo đúng khung
+              Business Diagnosis™, không phải câu chung chung kiểu "chúng tôi
+              giúp...".
             </p>
 
-            {/* Dashboard mini: trước/sau theo số liệu, không phải mô tả suông */}
+            {/* Evidence card: theo khung Observation → Evidence → Impact → Recommendation */}
             <div className="hover-premium mt-6 max-w-md rounded-xl border border-border bg-card p-6">
               <p className="text-sm font-semibold text-foreground">
                 [Tên khách hàng] — Xưởng [ngành], [số] nhân viên
               </p>
-              <div className="mt-5 space-y-4">
-                {SAMPLE_METRICS.map((m) => (
-                  <div key={m.label}>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-muted-foreground">{m.label}</span>
-                      <span className="font-mono text-foreground">
-                        <CountUp value={m.after} suffix={m.unit} />
-                      </span>
-                    </div>
-                    <div className="mt-1.5 flex h-1.5 gap-1 overflow-hidden rounded-full bg-secondary">
-                      <div
-                        className="h-full rounded-full bg-border"
-                        style={{ width: `${m.flipped ? 100 - m.before : m.before}%` }}
-                      />
-                    </div>
-                    <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-secondary">
-                      <div
-                        className="h-full rounded-full bg-accent/75 transition-[width] duration-1000 ease-out"
-                        style={{ width: `${m.after}%` }}
-                      />
-                    </div>
+              <div className="mt-5 space-y-4 border-t border-dashed border-border pt-4">
+                {SAMPLE_DIAGNOSIS.map((m) => (
+                  <div key={m.label} className="flex items-start justify-between gap-4">
+                    <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+                      {m.label}
+                    </span>
+                    <span className="max-w-[60%] text-right text-sm leading-snug text-foreground">
+                      {m.value}
+                    </span>
                   </div>
                 ))}
               </div>
