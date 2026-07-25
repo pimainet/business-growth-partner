@@ -9,7 +9,7 @@ function navHref(label: string) {
 const COLUMNS = [
   {
     title: 'Hệ thống',
-    links: ['Hiểu doanh nghiệp', 'Cách chúng tôi tư duy', 'Giải pháp', 'Câu chuyện doanh nghiệp'],
+    links: ['Hiểu doanh nghiệp', 'Vì sao doanh nghiệp thường giải sai vấn đề?', 'Giải pháp', 'Câu chuyện doanh nghiệp'],
   },
   {
     title: 'Công ty',

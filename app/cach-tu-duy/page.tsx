@@ -4,7 +4,7 @@ import { PageSkeleton } from '@/components/page-skeleton'
 import { SiteFooter } from '@/components/site-footer'
 
 export const metadata: Metadata = {
-  title: 'Cách chúng tôi tư duy — BGS™',
+  title: 'Vì sao doanh nghiệp thường giải sai vấn đề? — BGS™',
 }
 
 export default function Page() {
@@ -12,7 +12,10 @@ export default function Page() {
     <>
       <SiteHeader />
       <main>
-        <PageSkeleton eyebrow="Cách chúng tôi tư duy" question="Vì sao BGS không đưa ra giải pháp khi chưa hiểu doanh nghiệp?" />
+        <PageSkeleton
+          eyebrow="Vì sao doanh nghiệp thường giải sai vấn đề?"
+          question="Vì sao doanh nghiệp thường giải sai vấn đề?"
+        />
       </main>
       <SiteFooter />
     </>
