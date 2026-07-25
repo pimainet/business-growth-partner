@@ -1,105 +1,19 @@
 'use client'
 
-import { useMemo, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { ArrowRight, ArrowLeft, RotateCcw, Lock, Check, X as XIcon } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
-import { GROW5_STAGES, type Grow5Slug } from '@/lib/grow5'
-
-/**
- * Question model được thiết kế để mở rộng lên 30-100 câu mà không cần đổi
- * logic tính điểm hay UI: chỉ cần thêm phần tử vào QUESTIONS.
- */
-interface Question {
-  id: string
-  stage: Grow5Slug
-  text: string
-  weight: number // 1 = bình thường, 2 = quan trọng hơn trong nhóm
-  difficulty: 'basic' | 'intermediate'
-  industry: 'all' | 'furniture' | 'spa' | 'online'
-}
-
-const QUESTIONS: Question[] = [
-  {
-    id: 'mv-1',
-    stage: 'market-visibility',
-    text: 'Khách hàng tiềm năng tự tìm thấy bạn qua Google / Maps mà không cần bạn tiếp cận trước.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'mv-2',
-    stage: 'market-visibility',
-    text: 'Thương hiệu của bạn xuất hiện rõ ràng và nhất quán trên các kênh khách hàng thường tra cứu.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'cc-1',
-    stage: 'customer-conversion',
-    text: 'Phần lớn khách hàng tiềm năng thực sự chốt đơn, không rơi rụng giữa chừng.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'cc-2',
-    stage: 'customer-conversion',
-    text: 'Hành trình từ lúc khách quan tâm đến khi mua hàng rõ ràng, không đứt gãy giữa các bước.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'oe-1',
-    stage: 'operational-excellence',
-    text: 'Quy trình xử lý đơn hàng / khách hàng đã được chuẩn hóa, không phụ thuộc vào một cá nhân.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'oe-2',
-    stage: 'operational-excellence',
-    text: 'Bạn đang dùng công cụ tự động hóa (CRM, workflow) thay vì xử lý thủ công từng bước.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'bi-1',
-    stage: 'business-intelligence',
-    text: 'Bạn có dashboard hoặc báo cáo tổng hợp để nhìn toàn cảnh hiệu quả kinh doanh.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'bi-2',
-    stage: 'business-intelligence',
-    text: 'Quyết định quan trọng gần đây dựa trên dữ liệu, không chủ yếu dựa vào cảm tính.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'ci-1',
-    stage: 'continuous-improvement',
-    text: 'Bạn đo lường và thử nghiệm để cải thiện hệ thống theo chu kỳ định kỳ (tháng / quý).',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-  {
-    id: 'ci-2',
-    stage: 'continuous-improvement',
-    text: 'Đội ngũ có thói quen xem lại số liệu và chủ động điều chỉnh chiến lược.',
-    weight: 1,
-    difficulty: 'basic',
-    industry: 'all',
-  },
-]
+import { GROW5_STAGES } from '@/lib/grow5'
+import {
+  INDUSTRY_OPTIONS,
+  SIZE_OPTIONS,
+  NEXT_ACTION,
+  getQuestionsFor,
+  type BusinessContext,
+  type IndustrySlug,
+  type CompanySize,
+  type DiagnosisResult,
+} from '@/lib/diagnosis-engine'
 
 const SCALE = [
   { value: 1, label: 'Chưa bắt đầu' },
@@ -109,87 +23,50 @@ const SCALE = [
   { value: 5, label: 'Đã tối ưu' },
 ]
 
-const NEXT_ACTION: Record<Grow5Slug, string> = {
-  'market-visibility': 'Chuẩn hóa SEO nền tảng và hồ sơ Google Maps trước khi tăng ngân sách quảng cáo.',
-  'customer-conversion': 'Vẽ lại hành trình chuyển đổi và thống nhất kịch bản tư vấn cho toàn đội Sales.',
-  'operational-excellence': 'Chuẩn hóa quy trình xử lý đơn hàng thành checklist, giảm phụ thuộc cá nhân.',
-  'business-intelligence': 'Hợp nhất dữ liệu từ các phòng ban vào một dashboard duy nhất.',
-  'continuous-improvement': 'Thiết lập lịch đánh giá định kỳ hàng tháng để tối ưu liên tục.',
-}
-
-const MATURITY_LEVELS = [
-  { max: 35, label: 'Khởi đầu', desc: 'Các hoạt động tăng trưởng còn rời rạc, chưa thành hệ thống.' },
-  { max: 55, label: 'Tăng trưởng', desc: 'Đã có nền tảng, nhưng phụ thuộc nhiều vào nỗ lực cá nhân.' },
-  { max: 70, label: 'Mở rộng', desc: 'Hệ thống bắt đầu vận hành ổn định, cần chuẩn hóa để scale.' },
-  { max: 85, label: 'Chuẩn hóa', desc: 'Quy trình rõ ràng, dữ liệu được dùng để ra quyết định.' },
-  { max: 101, label: 'Chuyển đổi số', desc: 'Hệ thống tăng trưởng vận hành gần như tự động, liên tục tối ưu.' },
-]
-
-function getMaturityLevel(score: number) {
-  return MATURITY_LEVELS.find((l) => score <= l.max) ?? MATURITY_LEVELS[0]
-}
-
-function getPriorityTier(score: number) {
-  if (score < 45) return { label: 'Ưu tiên cao', tone: 'high' as const }
-  if (score < 70) return { label: 'Ưu tiên trung bình', tone: 'mid' as const }
-  return { label: 'Đã ổn định', tone: 'low' as const }
-}
-
 function scrollToFramework() {
   document.getElementById('framework')?.scrollIntoView({ behavior: 'smooth' })
 }
 
 export function BusinessAssessment() {
-  const [step, setStep] = useState(0) // 0..stages.length-1 = questions, stages.length = result
+  const stages = GROW5_STAGES
+
+  // step 0 = chọn ngành/quy mô, step 1..stages.length = từng giai đoạn câu hỏi,
+  // step stages.length + 1 = kết quả
+  const [step, setStep] = useState(0)
+  const [industry, setIndustry] = useState<IndustrySlug | null>(null)
+  const [size, setSize] = useState<CompanySize | null>(null)
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [email, setEmail] = useState('')
   const [emailSubmitted, setEmailSubmitted] = useState(false)
 
-  const stages = GROW5_STAGES
-  const isResult = step === stages.length
-  const currentStage = stages[step]
-  const currentQuestions = QUESTIONS.filter((q) => q.stage === currentStage?.slug)
+  const [result, setResult] = useState<DiagnosisResult | null>(null)
+  const [loadingResult, setLoadingResult] = useState(false)
+  const [resultError, setResultError] = useState<string | null>(null)
+
+  const context: BusinessContext | null =
+    industry && size ? { industry, size } : null
+
+  const questions = useMemo(
+    () => (context ? getQuestionsFor(context) : []),
+    [context],
+  )
+
+  const totalSteps = stages.length + 1
+  const isContextStep = step === 0
+  const isResult = step === totalSteps
+  const currentStage = !isContextStep && !isResult ? stages[step - 1] : null
+  const currentQuestions = currentStage
+    ? questions.filter((q) => q.stage === currentStage.slug)
+    : []
 
   const answeredCount = Object.keys(answers).length
-  const progress = Math.round((answeredCount / QUESTIONS.length) * 100)
-
-  const canAdvance =
-    !isResult && currentQuestions.every((q) => (answers[q.id] ?? 0) > 0)
-
-  const scores = useMemo(() => {
-    return stages.map((stage) => {
-      const qs = QUESTIONS.filter((q) => q.stage === stage.slug)
-      const totalWeight = qs.reduce((s, q) => s + q.weight, 0)
-      const weightedSum = qs.reduce(
-        (s, q) => s + (answers[q.id] ?? 0) * q.weight,
-        0,
-      )
-      const value =
-        totalWeight > 0
-          ? Math.round((weightedSum / (totalWeight * 5)) * 100)
-          : 0
-      return { ...stage, value }
-    })
-  }, [answers, stages])
-
-  const overall = scores.length
-    ? Math.round(scores.reduce((s, c) => s + c.value, 0) / scores.length)
+  const progress = questions.length
+    ? Math.round((answeredCount / questions.length) * 100)
     : 0
 
-  const sortedByWeakness = [...scores].sort((a, b) => a.value - b.value)
-  const sortedByStrength = [...scores].sort((a, b) => b.value - a.value)
-  const weakest = sortedByWeakness[0] ?? scores[0]
-  const maturity = getMaturityLevel(overall)
-
-  const strengths =
-    sortedByStrength.filter((s) => s.value >= 70).slice(0, 3).length > 0
-      ? sortedByStrength.filter((s) => s.value >= 70).slice(0, 3)
-      : sortedByStrength.slice(0, 1)
-  const bottlenecks =
-    sortedByWeakness.filter((s) => s.value < 45).slice(0, 3).length > 0
-      ? sortedByWeakness.filter((s) => s.value < 45).slice(0, 3)
-      : sortedByWeakness.slice(0, 2)
-  const priority30Days = sortedByWeakness.slice(0, 3)
+  const canAdvance = isContextStep
+    ? Boolean(context)
+    : !isResult && currentQuestions.every((q) => (answers[q.id] ?? 0) > 0)
 
   function setAnswer(questionId: string, value: number) {
     setAnswers((prev) => ({ ...prev, [questionId]: value }))
@@ -198,9 +75,55 @@ export function BusinessAssessment() {
   function reset() {
     setAnswers({})
     setStep(0)
+    setIndustry(null)
+    setSize(null)
     setEmail('')
     setEmailSubmitted(false)
+    setResult(null)
+    setResultError(null)
   }
+
+  async function submitForScoring() {
+    if (!context) return
+    setLoadingResult(true)
+    setResultError(null)
+    try {
+      const res = await fetch('/api/diagnosis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ context, answers }),
+      })
+      if (!res.ok) throw new Error('score_failed')
+      const data: DiagnosisResult = await res.json()
+      setResult(data)
+    } catch {
+      setResultError(
+        'Không thể tính điểm ngay lúc này. Vui lòng thử lại — câu trả lời của bạn vẫn được giữ nguyên.',
+      )
+    } finally {
+      setLoadingResult(false)
+    }
+  }
+
+  function goNext() {
+    if (isContextStep) {
+      setStep(1)
+      return
+    }
+    const isLastQuestionStep = step === totalSteps - 1
+    if (isLastQuestionStep) {
+      setStep(totalSteps)
+      return
+    }
+    setStep((s) => Math.min(totalSteps, s + 1))
+  }
+
+  useEffect(() => {
+    if (isResult && !result && !loadingResult && !resultError) {
+      submitForScoring()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isResult])
 
   function handleEmailSubmit(e: FormEvent) {
     e.preventDefault()
@@ -208,30 +131,34 @@ export function BusinessAssessment() {
   }
 
   function downloadReport() {
+    if (!result) return
     const date = new Date().toLocaleDateString('vi-VN')
+    const industryLabel =
+      INDUSTRY_OPTIONS.find((o) => o.value === result.context.industry)?.label ?? ''
     const lines = [
       'BGS™ ĐÁNH GIÁ DOANH NGHIỆP — BÁO CÁO CHẨN ĐOÁN',
       `Ngày thực hiện: ${date}`,
+      `Ngành: ${industryLabel}`,
       '',
-      `ĐIỂM TỔNG THỂ: ${overall}/100`,
-      `GIAI ĐOẠN TRƯỞNG THÀNH: ${maturity.label}`,
-      maturity.desc,
+      `ĐIỂM TỔNG THỂ: ${result.overall}/100`,
+      `GIAI ĐOẠN TRƯỞNG THÀNH: ${result.maturity.label}`,
+      result.maturity.desc,
       '',
       'ĐIỂM MẠNH:',
-      ...strengths.map((s) => `✓ ${s.code} · ${s.title} (${s.value}/100)`),
+      ...result.strengths.map((s) => `✓ ${s.code} · ${s.title} (${s.value}/100)`),
       '',
       'ĐIỂM NGHẼN:',
-      ...bottlenecks.map((s) => `✗ ${s.code} · ${s.title} (${s.value}/100)`),
+      ...result.bottlenecks.map((s) => `✗ ${s.code} · ${s.title} (${s.value}/100)`),
       '',
-      'CHI TIẾT THEO GIAI ĐOẠN GROW-5™:',
-      ...scores.map((s) => {
-        const tier = getPriorityTier(s.value)
-        return `${s.n}. ${s.code} · ${s.title} — ${s.value}/100 (${tier.label})`
+      'CHI TIẾT THEO GIAI ĐOẠN GROW-5™ (so với trung bình ngành):',
+      ...result.pillars.map((s) => {
+        const sign = s.delta >= 0 ? '+' : ''
+        return `${s.n}. ${s.code} · ${s.title} — ${s.value}/100 (TB ngành ${s.benchmark}, ${sign}${s.delta})`
       }),
       '',
       'ĐỀ XUẤT LỘ TRÌNH ƯU TIÊN:',
-      ...sortedByWeakness.map(
-        (s, i) => `${i + 1}. ${s.title} — ${NEXT_ACTION[s.slug]}`,
+      ...result.priority.map(
+        (p, i) => `${i + 1}. ${p.pillar.title} — ${p.recommendation}`,
       ),
       '',
       '— BGS™ (Business Growth System) · GROW-5™ Framework',
@@ -247,6 +174,10 @@ export function BusinessAssessment() {
     URL.revokeObjectURL(url)
   }
 
+  const weakest = result?.pillars
+    ? [...result.pillars].sort((a, b) => a.value - b.value)[0]
+    : null
+
   return (
     <section
       id="assessment"
@@ -256,7 +187,89 @@ export function BusinessAssessment() {
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-8 lg:p-16">
           <div className="pointer-events-none absolute inset-0 bg-grid-navy opacity-70" />
 
-          {!isResult ? (
+          {isContextStep ? (
+            <div className="relative mx-auto max-w-2xl">
+              <Reveal>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
+                  <span className="size-1.5 rounded-full bg-accent" />
+                  BGS™ Đánh giá doanh nghiệp
+                </span>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="mt-6 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                  Trước tiên, cho chúng tôi biết về doanh nghiệp của bạn.
+                </h2>
+              </Reveal>
+              <Reveal delay={140}>
+                <p className="mt-4 text-pretty text-navy-foreground/70">
+                  Bộ câu hỏi sẽ được điều chỉnh theo đúng ngành và quy mô của
+                  bạn, thay vì một bộ câu hỏi chung cho mọi doanh nghiệp.
+                </p>
+              </Reveal>
+
+              <Reveal delay={200} className="mt-10">
+                <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                  Ngành của bạn
+                </p>
+                <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+                  {INDUSTRY_OPTIONS.map((opt) => {
+                    const active = industry === opt.value
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setIndustry(opt.value)}
+                        className={
+                          active
+                            ? 'rounded-xl border border-accent bg-accent/20 px-4 py-3 text-left text-sm font-medium text-navy-foreground transition-colors'
+                            : 'rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left text-sm font-medium text-navy-foreground/60 transition-colors hover:border-white/25 hover:text-navy-foreground/90'
+                        }
+                      >
+                        {opt.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </Reveal>
+
+              <Reveal delay={240} className="mt-8">
+                <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                  Quy mô nhân sự
+                </p>
+                <div className="mt-3 grid grid-cols-3 gap-2.5">
+                  {SIZE_OPTIONS.map((opt) => {
+                    const active = size === opt.value
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setSize(opt.value)}
+                        className={
+                          active
+                            ? 'rounded-xl border border-accent bg-accent/20 px-4 py-3 text-center text-sm font-medium text-navy-foreground transition-colors'
+                            : 'rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-center text-sm font-medium text-navy-foreground/60 transition-colors hover:border-white/25 hover:text-navy-foreground/90'
+                        }
+                      >
+                        {opt.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </Reveal>
+
+              <div className="mt-10 flex items-center justify-end">
+                <button
+                  type="button"
+                  disabled={!canAdvance}
+                  onClick={goNext}
+                  className="inline-flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Bắt đầu đánh giá
+                  <ArrowRight className="size-4" />
+                </button>
+              </div>
+            </div>
+          ) : !isResult && currentStage ? (
             <div className="relative mx-auto max-w-2xl">
               <Reveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
@@ -271,9 +284,9 @@ export function BusinessAssessment() {
               </Reveal>
               <Reveal delay={140}>
                 <p className="mt-4 text-pretty text-navy-foreground/70">
-                  {QUESTIONS.length} câu hỏi, khoảng 2 phút, giúp bạn nhìn
-                  thấy điểm nghẽn trong hệ thống hiện tại. Kết quả tính từ
-                  chính câu trả lời của bạn — không phải số liệu mẫu.
+                  {questions.length} câu hỏi, khoảng 2 phút, được chọn theo
+                  đúng ngành và quy mô bạn vừa chọn. Kết quả tính từ chính
+                  câu trả lời của bạn — không phải số liệu mẫu.
                 </p>
               </Reveal>
 
@@ -286,7 +299,7 @@ export function BusinessAssessment() {
                     />
                   </div>
                   <span className="whitespace-nowrap font-mono text-xs text-navy-foreground/50">
-                    {step + 1}/{stages.length}
+                    {step}/{stages.length}
                   </span>
                 </div>
               </Reveal>
@@ -347,8 +360,7 @@ export function BusinessAssessment() {
                 <button
                   type="button"
                   onClick={() => setStep((s) => Math.max(0, s - 1))}
-                  disabled={step === 0}
-                  className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-navy-foreground/60 transition-colors hover:text-navy-foreground disabled:pointer-events-none disabled:opacity-0"
+                  className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-navy-foreground/60 transition-colors hover:text-navy-foreground"
                 >
                   <ArrowLeft className="size-4" />
                   Quay lại
@@ -356,15 +368,33 @@ export function BusinessAssessment() {
                 <button
                   type="button"
                   disabled={!canAdvance}
-                  onClick={() => setStep((s) => Math.min(stages.length, s + 1))}
+                  onClick={goNext}
                   className="inline-flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:cursor-not-allowed disabled:opacity-30"
                 >
-                  {step === stages.length - 1 ? 'Xem kết quả' : 'Tiếp tục'}
+                  {step === totalSteps - 1 ? 'Xem kết quả' : 'Tiếp tục'}
                   <ArrowRight className="size-4" />
                 </button>
               </div>
             </div>
-          ) : !emailSubmitted ? (
+          ) : loadingResult || (!result && !resultError) ? (
+            <div className="relative mx-auto max-w-lg text-center">
+              <div className="mx-auto size-10 animate-spin rounded-full border-2 border-white/15 border-t-accent" />
+              <p className="mt-6 text-sm text-navy-foreground/60">
+                Đang tính điểm BGS™ Business Score cho doanh nghiệp của bạn...
+              </p>
+            </div>
+          ) : resultError ? (
+            <div className="relative mx-auto max-w-lg text-center">
+              <p className="text-sm text-navy-foreground/70">{resultError}</p>
+              <button
+                type="button"
+                onClick={submitForScoring}
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              >
+                Thử lại
+              </button>
+            </div>
+          ) : !result ? null : !emailSubmitted ? (
             <div className="relative mx-auto max-w-lg text-center">
               <Reveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-navy-foreground/70">
@@ -375,18 +405,18 @@ export function BusinessAssessment() {
               <Reveal delay={80}>
                 <h2 className="mt-6 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
                   Mức trưởng thành doanh nghiệp:{' '}
-                  <span className="text-accent">{overall}/100</span>
+                  <span className="text-accent">{result.overall}/100</span>
                 </h2>
               </Reveal>
               <Reveal delay={140}>
                 <div className="mx-auto mt-6 h-3 max-w-sm overflow-hidden rounded-full bg-white/10">
                   <div
                     className="h-full rounded-full bg-accent transition-all duration-700"
-                    style={{ width: `${overall}%` }}
+                    style={{ width: `${result.overall}%` }}
                   />
                 </div>
                 <p className="mt-3 text-sm text-navy-foreground/60">
-                  {maturity.label} — {maturity.desc}
+                  {result.maturity.label} — {result.maturity.desc}
                 </p>
               </Reveal>
 
@@ -460,7 +490,7 @@ export function BusinessAssessment() {
                       BGS™ Đánh giá doanh nghiệp
                     </span>
                     <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
-                      {maturity.label}
+                      {result.maturity.label}
                     </span>
                   </div>
 
@@ -471,11 +501,11 @@ export function BusinessAssessment() {
                     <div className="h-4 flex-1 overflow-hidden rounded-full bg-white/10">
                       <div
                         className="h-full rounded-full bg-accent transition-all duration-700"
-                        style={{ width: `${overall}%` }}
+                        style={{ width: `${result.overall}%` }}
                       />
                     </div>
                     <span className="font-mono text-2xl font-semibold text-navy-foreground">
-                      {overall}%
+                      {result.overall}%
                     </span>
                   </div>
 
@@ -485,7 +515,7 @@ export function BusinessAssessment() {
                         Điểm mạnh
                       </p>
                       <ul className="mt-3 space-y-2.5">
-                        {strengths.map((s) => (
+                        {result.strengths.map((s) => (
                           <li
                             key={s.slug}
                             className="flex items-start gap-2 text-sm text-navy-foreground"
@@ -504,7 +534,7 @@ export function BusinessAssessment() {
                         Điểm nghẽn
                       </p>
                       <ul className="mt-3 space-y-2.5">
-                        {bottlenecks.map((s) => (
+                        {result.bottlenecks.map((s) => (
                           <li
                             key={s.slug}
                             className="flex items-start gap-2 text-sm text-navy-foreground"
@@ -525,17 +555,17 @@ export function BusinessAssessment() {
                       Ưu tiên 30 ngày
                     </p>
                     <ol className="mt-3 space-y-3">
-                      {priority30Days.map((s, i) => (
-                        <li key={s.slug} className="flex gap-3">
+                      {result.priority.map((p, i) => (
+                        <li key={p.pillar.slug} className="flex gap-3">
                           <span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent/20 font-mono text-xs text-accent">
                             {i + 1}
                           </span>
                           <div>
                             <p className="text-sm font-medium text-navy-foreground">
-                              {s.code} · {s.title}
+                              {p.pillar.code} · {p.pillar.title}
                             </p>
                             <p className="mt-0.5 text-sm leading-relaxed text-navy-foreground/60">
-                              {NEXT_ACTION[s.slug]}
+                              {p.recommendation}
                             </p>
                           </div>
                         </li>
@@ -549,30 +579,46 @@ export function BusinessAssessment() {
               <div className="mx-auto mt-10 max-w-2xl">
                 <Reveal delay={100}>
                   <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                    <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
-                      Chi tiết cả 5 giai đoạn
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
+                        Chi tiết cả 5 giai đoạn
+                      </p>
+                      <p className="text-[0.65rem] text-navy-foreground/40">
+                        So với trung bình ngành{' '}
+                        {INDUSTRY_OPTIONS.find((o) => o.value === result.context.industry)?.label}
+                      </p>
+                    </div>
                     <div className="mt-4 space-y-3">
-                      {scores.map((r) => (
+                      {result.pillars.map((r) => (
                         <div key={r.slug}>
                           <div className="flex items-center justify-between text-xs">
                             <span
                               className={
-                                r.slug === weakest.slug
+                                weakest && r.slug === weakest.slug
                                   ? 'font-medium text-accent'
                                   : 'text-navy-foreground/70'
                               }
                             >
                               {r.code} · {r.title}
                             </span>
-                            <span className="font-mono text-navy-foreground/50">
+                            <span className="flex items-center gap-2 font-mono text-navy-foreground/50">
                               {r.value}%
+                              <span
+                                className={
+                                  r.delta >= 0
+                                    ? 'text-[0.65rem] text-accent'
+                                    : 'text-[0.65rem] text-destructive/80'
+                                }
+                              >
+                                ({r.delta >= 0 ? '+' : ''}
+                                {r.delta} so TB ngành)
+                              </span>
                             </span>
                           </div>
                           <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
                             <div
                               className={
-                                r.slug === weakest.slug
+                                weakest && r.slug === weakest.slug
                                   ? 'h-full rounded-full bg-accent'
                                   : 'h-full rounded-full bg-accent/50'
                               }
@@ -592,7 +638,7 @@ export function BusinessAssessment() {
                       onClick={() => scrollToFramework()}
                       className="inline-flex items-center gap-2 rounded-full bg-background px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
                     >
-                      Xem giai đoạn {weakest.title} trong GROW-5™
+                      Xem giai đoạn {weakest?.title} trong GROW-5™
                       <ArrowRight className="size-4" />
                     </button>
                     <a
