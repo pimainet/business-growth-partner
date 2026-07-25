@@ -1,15 +1,17 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
 import { RelatableScenario } from '@/components/relatable-scenario'
+import { DiagnosisFirst } from '@/components/diagnosis-first'
+import { Method } from '@/components/method'
 import { BusinessDiagnosis } from '@/components/business-diagnosis'
-import { GrowthFramework } from '@/components/growth-framework'
-import { ManifestoStrip } from '@/components/manifesto-strip'
+import { DiagnosisReport } from '@/components/diagnosis-report'
 import { BusinessAssessment } from '@/components/business-assessment'
+import { GrowthFramework } from '@/components/growth-framework'
+import { SolutionFit } from '@/components/solution-fit'
+import { CaseStudy } from '@/components/case-study'
+import { KnowledgeBase } from '@/components/knowledge-base'
 import { Solutions } from '@/components/solutions'
 import { Industries } from '@/components/industries'
-import { CaseStudy } from '@/components/case-study'
-import { BusinessInsights } from '@/components/business-insights'
-import { WhyUs } from '@/components/why-us'
 import { FinalCta } from '@/components/final-cta'
 import { SiteFooter } from '@/components/site-footer'
 
@@ -18,22 +20,27 @@ export default function Page() {
     <>
       <SiteHeader />
       <main>
-        {/* CEO thấy chính mình */}
+        {/* 1. Tôi có vấn đề gì? — CEO thấy chính mình, không phải giới thiệu BGS */}
         <Hero />
         <RelatableScenario />
-        {/* Audit — để khách TỰ khám phá vấn đề, trước khi đọc bất kỳ giải thích nào */}
-        <BusinessAssessment />
-        {/* Business Diagnosis™ — đọc sau khi khách đã tự nhận ra vấn đề qua Assessment, không phải trước */}
+
+        {/* 2. Làm sao biết đâu là nguyên nhân thật sự? */}
+        <DiagnosisFirst />
+        <Method />
         <BusinessDiagnosis />
-        {/* Phương pháp giải quyết đúng điểm nghẽn vừa phát hiện */}
+
+        {/* 3. Nếu hợp tác với BGS, tôi nhận được gì để ra quyết định tốt hơn? */}
+        <DiagnosisReport />
+        <BusinessAssessment />
         <GrowthFramework />
-        <ManifestoStrip />
-        {/* Bằng chứng & lộ trình đồng hành */}
+
+        {/* 4. Sau khi hiểu vấn đề, bước tiếp theo phù hợp là gì? */}
+        <SolutionFit />
+        <CaseStudy />
+        <KnowledgeBase />
         <Solutions />
         <Industries />
-        <CaseStudy />
-        <BusinessInsights />
-        <WhyUs />
+
         <FinalCta />
       </main>
       <SiteFooter />

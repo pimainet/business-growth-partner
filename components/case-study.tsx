@@ -2,11 +2,11 @@ import { ArrowRight, Check } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 
-const SAMPLE_DIAGNOSIS = [
-  { label: 'Observation', value: 'Khách phản hồi chậm' },
-  { label: 'Evidence', value: '73% báo giá được gửi sau 24 giờ' },
-  { label: 'Business Impact', value: 'Tỷ lệ chốt đơn thấp' },
-  { label: 'Recommendation', value: 'Ưu tiên chuẩn hóa quy trình báo giá' },
+const JOURNEY = [
+  { label: 'Khi bắt đầu', value: '"Công ty nghĩ website là vấn đề."' },
+  { label: 'Sau khi chẩn đoán', value: '"Vấn đề nằm ở quy trình báo giá."' },
+  { label: 'Giải pháp', value: 'Chuẩn hóa quy trình trước.' },
+  { label: 'Kết quả', value: 'Website được làm sau cùng.' },
 ]
 
 const INCLUDES = [
@@ -81,18 +81,17 @@ export function CaseStudy() {
               Định dạng mẫu — chưa phải case thật
             </span>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-              Đây là cách mỗi case study thật sẽ được viết — theo đúng khung
-              Business Diagnosis™, không phải câu chung chung kiểu "chúng tôi
-              giúp...".
+              Đây là cách mỗi case study thật sẽ được kể — như một hành
+              trình, không phải một danh sách thành tích.
             </p>
 
-            {/* Evidence card: theo khung Observation → Evidence → Impact → Recommendation */}
+            {/* Journey card: Khi bắt đầu → Sau chẩn đoán → Giải pháp → Kết quả */}
             <div className="hover-premium mt-6 max-w-md rounded-xl border border-border bg-card p-6">
               <p className="text-sm font-semibold text-foreground">
                 [Tên khách hàng] — Xưởng [ngành], [số] nhân viên
               </p>
               <div className="mt-5 space-y-4 border-t border-dashed border-border pt-4">
-                {SAMPLE_DIAGNOSIS.map((m) => (
+                {JOURNEY.map((m) => (
                   <div key={m.label} className="flex items-start justify-between gap-4">
                     <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
                       {m.label}

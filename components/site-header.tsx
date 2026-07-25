@@ -7,10 +7,9 @@ import { cn } from '@/lib/utils'
 
 const NAV = [
   { label: 'Đánh giá doanh nghiệp', href: '#assessment' },
-  { label: 'Phương pháp', href: '#framework' },
+  { label: 'Cách làm việc', href: '#method' },
   { label: 'Giải pháp', href: '#solutions' },
   { label: 'Dự án', href: '#case-study' },
-  { label: 'Kiến thức', href: '#insights' },
   { label: 'Liên hệ', href: '#final-cta' },
 ]
 

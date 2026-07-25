@@ -17,17 +17,17 @@ export function FinalCta() {
       <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
         <Reveal>
           <h2 className="text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Mang doanh nghiệp của bạn đến.{' '}
+            Bạn đã đủ dữ liệu để{' '}
             <span className="font-serif font-normal italic text-foreground">
-              Chúng tôi sẽ giúp bạn hiểu nó trước.
-            </span>
+              đưa ra quyết định
+            </span>{' '}
+            chưa?
           </h2>
         </Reveal>
         <Reveal delay={100}>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            Trước khi bàn giải pháp, chúng tôi cùng bạn nhìn lại chính doanh
-            nghiệp mình — điểm nghẽn nằm ở đâu, vì sao nó tồn tại, và nên ưu
-            tiên xử lý điều gì trước.
+            Nếu câu trả lời là chưa, hãy bắt đầu bằng một buổi chẩn đoán
+            doanh nghiệp — trước khi bàn đến bất kỳ giải pháp nào.
           </p>
         </Reveal>
         <Reveal delay={180}>
@@ -36,14 +36,14 @@ export function FinalCta() {
               href="#assessment"
               className="btn-glow btn-shine inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground hover:bg-accent"
             >
-              Bắt đầu Business Diagnosis
+              Bắt đầu chẩn đoán doanh nghiệp
               <ArrowRight className="size-4" />
             </a>
             <a
-              href="#framework"
+              href="#method"
               className="btn-glow inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-7 py-3.5 text-sm font-medium text-foreground hover:bg-secondary"
             >
-              Tìm hiểu phương pháp
+              Tìm hiểu cách chúng tôi làm việc
             </a>
           </div>
         </Reveal>
