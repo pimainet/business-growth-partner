@@ -1,14 +1,19 @@
 import { Logo } from '@/components/logo'
 import { Grow5Glyph } from '@/components/grow5-glyph'
+import { SITE_NAV } from '@/lib/site-nav'
+
+function navHref(label: string) {
+  return SITE_NAV.find((item) => item.label === label)?.href ?? '/'
+}
 
 const COLUMNS = [
   {
     title: 'Hệ thống',
-    links: ['Đánh giá doanh nghiệp', 'Phương pháp', 'Giải pháp', 'Dự án'],
+    links: ['Hiểu doanh nghiệp', 'Cách chúng tôi tư duy', 'Giải pháp', 'Câu chuyện doanh nghiệp'],
   },
   {
     title: 'Công ty',
-    links: ['Về chúng tôi', 'Kiến thức', 'Tuyển dụng', 'Liên hệ'],
+    links: ['Về BGS', 'Góc nhìn tăng trưởng', 'Liên hệ'],
   },
 ]
 
@@ -43,7 +48,7 @@ export function SiteFooter() {
                 {col.links.map((link) => (
                   <li key={link}>
                     <a
-                      href="#top"
+                      href={navHref(link)}
                       className="text-sm text-navy-foreground/55 transition-colors hover:text-navy-foreground"
                     >
                       {link}

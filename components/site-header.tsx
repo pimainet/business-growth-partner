@@ -4,14 +4,11 @@ import { useEffect, useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
+import { SITE_NAV } from '@/lib/site-nav'
 
-const NAV = [
-  { label: 'Đánh giá doanh nghiệp', href: '#assessment' },
-  { label: 'Cách làm việc', href: '#method' },
-  { label: 'Giải pháp', href: '#solutions' },
-  { label: 'Dự án', href: '#case-study' },
-  { label: 'Liên hệ', href: '#final-cta' },
-]
+// Điều hướng chính lấy từ SITE_NAV — không tính Home (đã có logo) và
+// Liên hệ (đã có nút CTA riêng), theo đúng cấu trúc 9 trang trong Blueprint V2.
+const NAV = SITE_NAV.filter((item) => item.href !== '/' && item.href !== '/lien-he')
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
@@ -34,28 +31,31 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <a href="#top" aria-label="BGS™ — trang chủ">
+        <a href="/" aria-label="BGS™ — trang chủ">
           <Logo />
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Chính">
+        <nav
+          className="hidden items-center gap-5 overflow-x-auto lg:flex lg:gap-6"
+          aria-label="Chính"
+        >
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="nav-link text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="nav-link whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
-            href="#final-cta"
+            href="/lien-he"
             className="btn-glow btn-shine inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-accent"
           >
-            Đặt lịch chiến lược
+            Đặt lịch Business Diagnosis
             <ArrowUpRight className="size-4" />
           </a>
         </div>
@@ -63,7 +63,7 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="grid size-9 place-items-center rounded-md text-foreground md:hidden"
+          className="grid size-9 place-items-center rounded-md text-foreground lg:hidden"
           aria-label={open ? 'Đóng menu' : 'Mở menu'}
           aria-expanded={open}
         >
@@ -72,7 +72,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
+        <div className="border-t border-border bg-background lg:hidden">
           <nav className="flex flex-col px-6 py-4" aria-label="Di động">
             {NAV.map((item) => (
               <a
@@ -85,11 +85,11 @@ export function SiteHeader() {
               </a>
             ))}
             <a
-              href="#final-cta"
+              href="/lien-he"
               onClick={() => setOpen(false)}
               className="mt-4 inline-flex items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground"
             >
-              Đặt lịch chiến lược
+              Đặt lịch Business Diagnosis
               <ArrowUpRight className="size-4" />
             </a>
           </nav>
