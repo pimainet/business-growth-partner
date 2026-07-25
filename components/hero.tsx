@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative border-b border-border pt-16"
+      className="relative border-b border-border pt-16 lg:pt-28"
     >
       <div className="relative mx-auto flex min-h-[86vh] max-w-3xl flex-col items-center justify-center px-6 py-28 text-center lg:px-8">
         <Reveal>

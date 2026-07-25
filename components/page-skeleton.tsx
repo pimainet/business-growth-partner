@@ -15,7 +15,7 @@ export function PageSkeleton({
   question: string
 }) {
   return (
-    <section className="border-b border-border pt-16">
+    <section className="border-b border-border pt-16 lg:pt-28">
       <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col items-center justify-center px-6 py-28 text-center lg:px-8">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">

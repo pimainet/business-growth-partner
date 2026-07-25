@@ -32,7 +32,7 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <Logo variant="dark" />
+            <Logo variant="dark" showTagline />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-foreground/55">
               Đối tác xây dựng hệ thống tăng trưởng cho doanh nghiệp Việt Nam.
               Business before technology.
