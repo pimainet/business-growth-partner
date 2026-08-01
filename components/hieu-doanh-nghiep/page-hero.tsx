@@ -36,7 +36,7 @@ export function PageHero() {
               href="#business-lens"
               className="btn-glow btn-shine mt-9 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-accent"
             >
-              Khám phá cách BGS chẩn đoán doanh nghiệp
+              Tôi muốn hiểu doanh nghiệp của mình
               <ArrowRight className="size-4" />
             </a>
           </Reveal>

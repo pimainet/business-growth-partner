@@ -11,7 +11,7 @@ const STEPS = [
 
 export function RealExample() {
   return (
-    <section className="border-b border-border bg-secondary/30 py-32 lg:py-40">
+    <section className="border-b border-border bg-secondary py-32 lg:py-40">
       <div className="mx-auto max-w-2xl px-6 lg:px-8">
         <SectionHeading eyebrow="Một ví dụ thực tế" title="Triệu chứng không phải lúc nào cũng chỉ đúng nơi cần sửa." align="center" />
 

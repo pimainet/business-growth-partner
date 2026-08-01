@@ -1,19 +1,17 @@
 import { Logo } from '@/components/logo'
 import { Grow5Glyph } from '@/components/grow5-glyph'
-import { SITE_NAV } from '@/lib/site-nav'
-
-function navHref(label: string) {
-  return SITE_NAV.find((item) => item.label === label)?.href ?? '/'
-}
 
 const COLUMNS = [
   {
-    title: 'Hệ thống',
-    links: ['Hiểu doanh nghiệp', 'Vì sao doanh nghiệp thường giải sai vấn đề?', 'Giải pháp', 'Câu chuyện doanh nghiệp'],
-  },
-  {
-    title: 'Công ty',
-    links: ['Về BGS', 'Góc nhìn tăng trưởng', 'Liên hệ'],
+    title: 'BGS™',
+    links: [
+      { label: 'Hiến pháp', href: '/ve-bgs' },
+      { label: 'Business Diagnosis™', href: '/bao-cao-chan-doan' },
+      { label: 'Knowledge Base', href: '/goc-nhin-tang-truong' },
+      { label: 'Business Stories', href: '/cau-chuyen-doanh-nghiep' },
+      { label: 'Phương pháp', href: '/cach-tu-duy' },
+      { label: 'Đặt lịch', href: '/lien-he' },
+    ],
   },
 ]
 
@@ -30,7 +28,7 @@ export function SiteFooter() {
       <Grow5Glyph className="pointer-events-none absolute -right-16 -top-24 size-80 text-navy-foreground/[0.04]" />
 
       <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr]">
           <div>
             <Logo variant="dark" showTagline />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-foreground/55">
@@ -46,12 +44,12 @@ export function SiteFooter() {
               </h3>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <a
-                      href={navHref(link)}
+                      href={link.href}
                       className="text-sm text-navy-foreground/55 transition-colors hover:text-navy-foreground"
                     >
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}

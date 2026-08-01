@@ -5,7 +5,7 @@ const AREAS = ['Marketing', 'Sales', 'Operations', 'Finance', 'People', 'Technol
 
 export function SymptomLayers() {
   return (
-    <section className="border-b border-border bg-secondary/30 py-28 lg:py-32">
+    <section className="border-b border-border bg-secondary py-28 lg:py-32">
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         <SectionHeading
           eyebrow="Một doanh nghiệp không chỉ có một vấn đề"

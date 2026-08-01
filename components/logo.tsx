@@ -23,15 +23,15 @@ export function Logo({
         alt="BGS™"
         width={44}
         height={52}
-        className="h-9 w-auto shrink-0 sm:h-10"
+        className="h-11 w-auto shrink-0 sm:h-12"
         priority
       />
       <span className="flex flex-col leading-none">
         <span
           className={
             variant === 'dark'
-              ? 'text-[17px] font-semibold tracking-tight text-navy-foreground'
-              : 'text-[17px] font-semibold tracking-tight text-foreground'
+              ? 'text-[19px] font-semibold tracking-tight text-navy-foreground'
+              : 'text-[19px] font-semibold tracking-tight text-foreground'
           }
         >
           BGS<span className="align-super text-[0.55em] text-accent">™</span>

@@ -40,7 +40,7 @@ export const SITE_NAV: SiteNavItem[] = [
     href: '/cach-tu-duy',
     question: 'Vì sao doanh nghiệp thường giải sai vấn đề?',
     journey: true,
-    navLabel: 'Phương pháp',
+    navLabel: 'Framework',
     step: 2,
   },
   {
@@ -48,7 +48,7 @@ export const SITE_NAV: SiteNavItem[] = [
     href: '/bao-cao-chan-doan',
     question: 'Sau khi chẩn đoán, bạn nhận được gì trong tay?',
     journey: true,
-    navLabel: 'Báo cáo',
+    navLabel: 'Business Diagnosis™',
     step: 3,
   },
   {
@@ -56,7 +56,7 @@ export const SITE_NAV: SiteNavItem[] = [
     href: '/cau-chuyen-doanh-nghiep',
     question: 'Những doanh nghiệp khác đã thay đổi thế nào?',
     journey: true,
-    navLabel: 'Câu chuyện',
+    navLabel: 'Case Study',
     step: 4,
   },
   {
