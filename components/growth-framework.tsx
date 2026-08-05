@@ -145,9 +145,9 @@ export function GrowthFramework() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
-            eyebrow="GROW-5™ — Khung vận hành tăng trưởng doanh nghiệp"
-            title="Một hệ thống tăng trưởng, năm giai đoạn liền mạch."
-            description="GROW-5™ là mô hình làm việc nội bộ mà BGS đang sử dụng để phân tích và triển khai các dự án chuyển đổi số — và sẽ tiếp tục được hoàn thiện từ dữ liệu thực tế của từng doanh nghiệp mà chúng tôi đồng hành."
+            eyebrow="GROW-5™ — Cách một khuyến nghị được đưa ra"
+            title="Sau chẩn đoán, khuyến nghị của bạn đi qua đúng 5 chặng này."
+            description="Đây không phải lý thuyết để đọc — đây là đường đi thật của một quyết định: kết quả của giai đoạn trước trở thành đầu vào của giai đoạn sau, cho đến khi ra được việc cần ưu tiên làm trước."
           />
           <Reveal delay={200}>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground lg:text-right">
