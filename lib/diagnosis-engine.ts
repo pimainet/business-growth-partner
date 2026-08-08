@@ -208,17 +208,24 @@ export const INDUSTRY_BENCHMARK: Record<IndustrySlug, Record<Grow5Slug, number>>
   },
 }
 
-export const NEXT_ACTION: Record<Grow5Slug, string> = {
+/**
+ * QUAN TRỌNG — không thêm giải pháp cụ thể (SEO, CRM, dashboard...) vào đây.
+ * Business Diagnosis Method (bgs/method/001) cấm đưa ra giải pháp trước khi
+ * có Evidence + Root Cause thật từ chẩn đoán trực tiếp. Điểm số thấp chỉ
+ * cho biết "vùng nào đáng chú ý", không cho biết nguyên nhân hay giải pháp.
+ * Nội dung dưới đây chỉ được phép nêu VÙNG cần chẩn đoán, không được kê đơn.
+ */
+export const AREA_NOTE: Record<Grow5Slug, string> = {
   'market-visibility':
-    'Chuẩn hóa SEO nền tảng và hồ sơ Google Maps trước khi tăng ngân sách quảng cáo.',
+    'Điểm thấp ở đây có thể do nhiều nguyên nhân khác nhau — cần chẩn đoán trực tiếp mới xác định được nguyên nhân thật.',
   'customer-conversion':
-    'Vẽ lại hành trình chuyển đổi và thống nhất kịch bản tư vấn cho toàn đội Sales.',
+    'Điểm thấp ở đây có thể do nhiều nguyên nhân khác nhau — cần chẩn đoán trực tiếp mới xác định được nguyên nhân thật.',
   'operational-excellence':
-    'Chuẩn hóa quy trình xử lý đơn hàng thành checklist, giảm phụ thuộc cá nhân.',
+    'Điểm thấp ở đây có thể do nhiều nguyên nhân khác nhau — cần chẩn đoán trực tiếp mới xác định được nguyên nhân thật.',
   'business-intelligence':
-    'Hợp nhất dữ liệu từ các phòng ban vào một dashboard duy nhất.',
+    'Điểm thấp ở đây có thể do nhiều nguyên nhân khác nhau — cần chẩn đoán trực tiếp mới xác định được nguyên nhân thật.',
   'continuous-improvement':
-    'Thiết lập lịch đánh giá định kỳ hàng tháng để tối ưu liên tục.',
+    'Điểm thấp ở đây có thể do nhiều nguyên nhân khác nhau — cần chẩn đoán trực tiếp mới xác định được nguyên nhân thật.',
 }
 
 const MATURITY_LEVELS = [
@@ -258,7 +265,8 @@ export interface DiagnosisResult {
   pillars: PillarResult[]
   strengths: PillarResult[]
   bottlenecks: PillarResult[]
-  priority: { pillar: PillarResult; recommendation: string }[]
+  /** note = ghi nhận vùng cần chẩn đoán, KHÔNG phải giải pháp/khuyến nghị hành động */
+  priority: { pillar: PillarResult; note: string }[]
 }
 
 export function computeDiagnosis(
@@ -304,7 +312,7 @@ export function computeDiagnosis(
       : sortedByWeakness.slice(0, 2)
   const priority = sortedByWeakness
     .slice(0, 3)
-    .map((p) => ({ pillar: p, recommendation: NEXT_ACTION[p.slug] }))
+    .map((p) => ({ pillar: p, note: AREA_NOTE[p.slug] }))
 
   return {
     context,

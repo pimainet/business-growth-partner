@@ -7,7 +7,6 @@ import { GROW5_STAGES } from '@/lib/grow5'
 import {
   INDUSTRY_OPTIONS,
   SIZE_OPTIONS,
-  NEXT_ACTION,
   getQuestionsFor,
   type BusinessContext,
   type IndustrySlug,
@@ -156,10 +155,13 @@ export function BusinessAssessment() {
         return `${s.n}. ${s.code} · ${s.title} — ${s.value}/100 (TB ngành ${s.benchmark}, ${sign}${s.delta})`
       }),
       '',
-      'ĐỀ XUẤT LỘ TRÌNH ƯU TIÊN:',
+      'VÙNG CẦN CHẨN ĐOÁN SÂU HƠN (chưa phải kết luận nguyên nhân hay giải pháp):',
       ...result.priority.map(
-        (p, i) => `${i + 1}. ${p.pillar.title} — ${p.recommendation}`,
+        (p, i) => `${i + 1}. ${p.pillar.title} — ${p.note}`,
       ),
+      '',
+      'Đây là kết quả tự đánh giá nhanh, không phải Báo cáo Chẩn đoán Doanh nghiệp™.',
+      'Để biết nguyên nhân thật và hướng hành động cụ thể, cần một buổi chẩn đoán trực tiếp.',
       '',
       '— BGS™ (Business Growth System) · GROW-5™ Framework',
     ]
@@ -552,7 +554,7 @@ export function BusinessAssessment() {
 
                   <div className="mt-8 border-t border-white/10 pt-6">
                     <p className="text-xs font-medium uppercase tracking-widest text-navy-foreground/50">
-                      Ưu tiên 30 ngày
+                      Vùng cần chẩn đoán sâu hơn
                     </p>
                     <ol className="mt-3 space-y-3">
                       {result.priority.map((p, i) => (
@@ -565,12 +567,16 @@ export function BusinessAssessment() {
                               {p.pillar.code} · {p.pillar.title}
                             </p>
                             <p className="mt-0.5 text-sm leading-relaxed text-navy-foreground/60">
-                              {p.recommendation}
+                              {p.note}
                             </p>
                           </div>
                         </li>
                       ))}
                     </ol>
+                    <p className="mt-4 text-xs leading-relaxed text-navy-foreground/50">
+                      Đây là kết quả tự đánh giá nhanh — chưa phải Báo cáo Chẩn đoán Doanh nghiệp™.
+                      Điểm số cho biết vùng đáng chú ý, chưa cho biết nguyên nhân thật.
+                    </p>
                   </div>
                 </div>
               </Reveal>
